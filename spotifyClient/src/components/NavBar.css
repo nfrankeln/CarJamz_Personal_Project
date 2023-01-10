@@ -1,0 +1,34 @@
+a{
+    text-decoration: none;
+}
+#app-container{
+    height: 100%;
+    width: 100%;
+}
+#navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    height: 10%;
+}
+#navbar-links{
+    display: flex;
+    justify-content: space-around;
+}
+#navbar-links li{
+    list-style-type: none;
+}
+#navbar-links li a{
+    color: white;
+}
+#navbar-links li a:hover{
+    color: aquamarine;
+}
+#navbar-child-links{
+    width:50%;
+}
+#navbar-child-logo a{
+    text-decoration: none;
+    color:white;
+}

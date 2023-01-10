@@ -1,0 +1,47 @@
+#sign-up-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+#sign-up-form-container{
+    height: 100%;
+    width: 100%;
+    padding-top: 2%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+#sign-up-button{
+    width:50%;
+    border-radius:1rem;
+    background-color: #20bead;
+    color:white;
+    border: none;
+    padding: 1%;
+}
+#sign-up-button-wrapper{
+display: flex;
+justify-content: center;
+}
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.input-wrapper input{
+    flex-grow: 1;
+    width: 88%;
+}
+#name-wrapper{
+    display: flex;
+}
+#name-wrapper .input-wrapper{
+    flex-grow: 1;
+}
+#name-wrapper .input-wrapper input{
+    flex-grow: 1;
+    width:75%;
+    margin-top: 2%;
+}

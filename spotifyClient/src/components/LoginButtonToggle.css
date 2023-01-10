@@ -1,0 +1,41 @@
+.login-btn-toggle{
+    height: 2rem;
+    padding: .25em;
+    border-radius: 1rem;
+    
+    
+  }
+  .btn1{
+    z-index: 2;
+    position:relative;
+    padding:1%;
+    width:50%;
+    background-color: #20bead;
+    color:white;
+    border: none;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn2{
+    z-index: 1; 
+    padding: 1%;
+    position: relative;
+    
+    width:50%;
+    background-color: #ddf0f0;
+    color:black;
+    border: none;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-radius:1rem;
+    padding: 0;
+    background-color: #ddf0f0;
+    border: none;
+  }
