@@ -3,16 +3,13 @@
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
-    padding-left: 2%;
-    padding-right: 2%;
+    row-gap: 1em;
 }
-#sign-up-form-container{
-    height: 100%;
-    width: 100%;
-    padding-top: 2%;
+#sign-up-form-body{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    
 }
 #sign-up-button{
     width:50%;

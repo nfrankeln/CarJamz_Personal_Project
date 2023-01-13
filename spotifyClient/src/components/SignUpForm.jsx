@@ -1,7 +1,7 @@
 import './SignUpForm.css'
 export default function SignUpForm(){
     return(
-        <div id="sign-up-form-container" >
+        <div id="sign-up-form-body" >
             <form id="sign-up-form">
                 <div id='name-wrapper'>
                 <div className='input-wrapper'>

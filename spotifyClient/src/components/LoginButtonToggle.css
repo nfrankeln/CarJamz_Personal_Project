@@ -33,7 +33,8 @@
   .btn-container{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width:30%;
+    
     border-radius:1rem;
     padding: 0;
     background-color: #ddf0f0;
