@@ -42,7 +42,8 @@ class AppUser(AbstractUser):
         max_length=255,
         unique=True
     )
-    
+    imageURL=models.TextField(null=True)
+    spotifyID=models.CharField(max_length=255,null=True,blank=True)
     
     objects=UserManager()
 

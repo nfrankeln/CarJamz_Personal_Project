@@ -1,30 +1,34 @@
 import './SignUpForm.css'
+import { useForm } from "react-hook-form";
+import axios from 'axios'
 export default function SignUpForm(){
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => axios.post('api/register/',{data});
     return(
         <div id="sign-up-form-body" >
             <form id="sign-up-form">
                 <div id='name-wrapper'>
                 <div className='input-wrapper'>
                 <label htmlFor='first-name'>First Name</label>
-                <input id='first-name' type="text"/>
+                <input {...register("firstName" , { pattern: /^[A-Za-z]+$/i } )} id='first-name' type="text"/>
                 </div>
 
                 <div className='input-wrapper'>
                 <label htmlFor='last-name'>Last Name</label>
-                <input id='last-name' type="text"/>
+                <input {...register("lastName" , { pattern: /^[A-Za-z]+$/i } )} id='last-name' type="text"/>
                 </div>
                 </div>
                 <div className='input-wrapper'>
                 <label htmlFor="email">Email</label>
-                <input id='email' type="email"/>
+                <input {...register("email")} id='email' type="email"/>
                 </div>
 
                 <div className='input-wrapper'>
                     <label htmlFor="password">Password</label>
-                <input id='password' type="text"/>
+                <input {...register("password")} id='password' type="text"/>
                 </div>
                 <div id='sign-up-button-wrapper'>
-                <button id='sign-up-button'>Lets GO!</button>
+                <button onClick={handleSubmit(onSubmit)} id='sign-up-button'>Lets GO!</button>
                 </div>
             </form>
         </div>
