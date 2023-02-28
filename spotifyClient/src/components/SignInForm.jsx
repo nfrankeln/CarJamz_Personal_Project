@@ -13,7 +13,7 @@ export default function SignInForm(){
                 <input id='password' type="text"/>
                 </div>
                 <div id='sign-up-button-wrapper'>
-                <button id='sign-up-button'>Login</button>
+                <button className='sign-up-in-button'>Login</button>
                 </div>
             </form>
         </div>
