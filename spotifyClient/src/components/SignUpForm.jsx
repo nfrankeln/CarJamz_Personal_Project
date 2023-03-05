@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from 'axios'
 export default function SignUpForm(){
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => axios.post('api/register/',{data});
+    const onSubmit = signUpData => axios.post('api/register/',{signUpData});
     return(
         <div id="sign-up-form-body" >
             <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
@@ -12,12 +12,12 @@ export default function SignUpForm(){
                 
                 <div className='input-wrapper'>
                 <label htmlFor='first-name'>First Name</label>
-                <input {...register("firstName" , {pattern: /^[A-Za-z]+$/i } )} id='first-name' type="text"/>
+                <input {...register("first_name" , {pattern: /^[A-Za-z]+$/i } )} id='first-name' type="text"/>
                 </div>
                 
                 <div className='input-wrapper'>
                 <label htmlFor='last-name'>Last Name</label>
-                <input {...register("lastName" , { pattern: /^[A-Za-z]+$/i } )} id='last-name' type="text"/>
+                <input {...register("last_name" , { pattern: /^[A-Za-z]+$/i } )} id='last-name' type="text"/>
                 </div>
 
                 </div>
@@ -34,7 +34,7 @@ export default function SignUpForm(){
                 <label htmlFor="password">Password</label>
                 <input {...register("password",{required: true, minLength: 4})} id='password' type="text"/>
                 </div>
-                {errors.password?.type === 'required' && <span>A password is required </span>}
+                {errors.password?.type === 'required' && <span>a password is required </span>}
                 {errors.password?.type === 'minLength' && <span>password must be at least 4 charachters</span>}
 
                 <div id='sign-up-button-wrapper'>
