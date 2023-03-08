@@ -1,27 +1,16 @@
-import { useState,useEffect } from "react";
 import { Outlet,Link,redirect, useNavigate } from "react-router-dom";
 import './NavBar.css'
 import axios from "axios";
-export default function NavBar()
+export default function NavBar(props)
 {
-    const [authenticated, setAuthenticated] = useState(false);
     const navigate = useNavigate()
-    useEffect(() => {
-        axios.get('api/is_authenticated/')
-            .then(response => {
-                setAuthenticated(response.data.authenticated);
-                console.log(response.data)
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
+   
+    //FUNCTIONS
     function logout(){
         axios.post('api/logout/')
         .then(response =>  navigate("/login") )
-        .catch(error => {
-            console.log(error);
-        });
+        .then(()=> navigate(0))
+        .catch(error => {console.log(error);});
     }
 
     return(
@@ -32,8 +21,8 @@ export default function NavBar()
                 <ul id="navbar-links">
                     <li><Link to="/">Home</Link></li>
                     <li><Link>Users</Link></li>
-                    <li><Link>Profile</Link></li>
-                    {authenticated?<li><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
+                    {props.authenticated?<li><Link to="/profile">Profile</Link></li>:null}
+                    {props.authenticated?<li><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
                 </ul>
             </div>
         </div>
