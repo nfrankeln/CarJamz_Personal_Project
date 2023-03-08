@@ -3,7 +3,9 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from django.http import JsonResponse, HttpResponse
 from requests import Request,post
+import requests
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
+from spotifyapi.models import SpotifyToken
 # Create your views here.
 
 @api_view(['GET'])
@@ -50,8 +52,14 @@ def spotfiy_callback(request):
         refresh_token = response.get('refresh_token')
         expires_in = response.get('expires_in')
         error = response.get('error')
-        print(access_token)
-        print(refresh_token)
-        print(expires_in)
+        
+        newToken,created= SpotifyToken.objects.get_or_create(
+                user=request.user,
+                refresh_token = refresh_token,
+                access_token = access_token,
+                token_type = token_type)
+        if not created:
+                newToken.save()
         return redirect('authorization:home')
         pass
+

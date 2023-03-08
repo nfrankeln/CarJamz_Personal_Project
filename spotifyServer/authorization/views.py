@@ -3,6 +3,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate,login,logout
 from authorization.models import AppUser as User
+from spotifyapi.utils import get_token
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 def index(request):
@@ -41,11 +42,19 @@ def user_logout(request):
     print("here")
     logout(request)
     return HttpResponse("logged out")
+
 @api_view(['GET'])
-def is_authenicated(request):
-    print(request.user.is_authenticated)
-    print(request.user)
-    response_data = {
-        "authenticated": request.user.is_authenticated
-    }
-    return JsonResponse(response_data)
+def is_authenticated(request):
+    permission = False
+    try:
+        user=request.user
+        get_token(user)
+        permission=True
+    except:
+        print("no toke")
+
+    if request.user.is_authenticated:
+        return JsonResponse({'is_authenticated': True,'permission':permission})
+    else:
+        return JsonResponse({'is_authenticated': False,'permission':permission})
+
