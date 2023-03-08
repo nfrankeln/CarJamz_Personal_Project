@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.conf import settings
 from rest_framework.decorators import api_view
 from django.http import JsonResponse, HttpResponse
-from requests import Request
+from requests import Request,post
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
 # Create your views here.
 
@@ -37,6 +37,21 @@ def spotify_url(request):
         return JsonResponse({'url': url})
 
 def spotfiy_callback(request):
-        print("here")
+        code = request.GET.get('code')
+        response = post('https://accounts.spotify.com/api/token', data={
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': REDIRECT_URI,
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET}).json()
+
+        access_token = response.get('access_token')
+        token_type = response.get('token_type')
+        refresh_token = response.get('refresh_token')
+        expires_in = response.get('expires_in')
+        error = response.get('error')
+        print(access_token)
+        print(refresh_token)
+        print(expires_in)
         return redirect('authorization:home')
         pass
