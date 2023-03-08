@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authorization',
     'rest_framework',
+    'spotifyapi',
 ]
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]

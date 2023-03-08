@@ -1,8 +1,8 @@
 from . import views
 from django.urls import path, re_path
-app_name="autherization"
+app_name="authorization"
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='home'),
     path('api/register/',views.register),
     path('api/login/',views.user_login),
     path('api/logout/',views.user_logout),
