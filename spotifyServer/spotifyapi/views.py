@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.conf import settings
 from rest_framework.decorators import api_view
+from spotifyapi.utils import get_token
 from django.http import JsonResponse, HttpResponse
+from django.utils import timezone
 from requests import Request,post
 import requests
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
@@ -57,9 +59,23 @@ def spotfiy_callback(request):
                 user=request.user,
                 refresh_token = refresh_token,
                 access_token = access_token,
+                access_token_expiration=timezone.now() + timezone.timedelta(seconds=expires_in),
                 token_type = token_type)
         if not created:
                 newToken.save()
         return redirect('authorization:home')
         pass
+@api_view(['GET'])
+def topSongs(request):
+        userAcessToken=get_token(request.user)
+        params={"limit":25}
+        headers = {"Authorization": "Bearer "+ userAcessToken}
+        try:
+                response = requests.get("https://api.spotify.com/v1/me/top/tracks",params=params, headers=headers)
+                response=response.json()
+                return JsonResponse(response, safe=False)
+        except Exception as e:
+                print(e)
+                return HttpResponse("error")
+
 

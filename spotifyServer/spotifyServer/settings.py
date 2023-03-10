@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'spotifyapi',
 ]
+# static files pathing
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 

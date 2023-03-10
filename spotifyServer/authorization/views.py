@@ -31,12 +31,9 @@ def user_login(request):
     user = authenticate(http_request, email=email, password=password)
     if user is not None:
         login(http_request, user)
-    #     TODO Redirect to a success page.
+        return HttpResponse("logged in")
     else:
-        print("user not found")
-    #     TODO Return an 'invalid login' error message.
-    #     ...
-    return HttpResponse('ok')
+        return HttpResponse("Either the username or password is incorrect")
 @api_view(['POST'])
 def user_logout(request):
     print("here")
