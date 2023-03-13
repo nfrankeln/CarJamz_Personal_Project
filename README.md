@@ -11,3 +11,6 @@ b) a profile page where a user can see information pertaining to thier own spoti
 c) a users page where a user can look up other users 
 ## Back End
 The back end is made with django and postgres
+
+## Postgres Diagram
+[Spotify song data diagram](https://drawsql.app/teams/codeplatoon/diagrams/spotify)
