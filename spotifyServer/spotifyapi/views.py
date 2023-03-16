@@ -14,6 +14,7 @@ from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
 # Import Models
 from spotifyapi.models import SpotifyToken,Song,Playlist,UserPlaylistCollection,Artist,Genre
 
+from django.db.models import Count
 
 @api_view(['GET'])
 def spotify_url(request):
@@ -43,9 +44,11 @@ def spotify_url(request):
             'client_id': CLIENT_ID,
             'show_dialog':True
         }).prepare().url
+        
         return JsonResponse({'url': url})
 
 def spotfiy_callback(request):
+        
         code = request.GET.get('code')
         response = post('https://accounts.spotify.com/api/token', data={
         'grant_type': 'authorization_code',
@@ -66,9 +69,10 @@ def spotfiy_callback(request):
                 access_token = access_token,
                 access_token_expiration=timezone.now() + timezone.timedelta(seconds=expires_in),
                 token_type = token_type)
-        if not created:
+        if created:
                 newToken.save()
                 # save_User_Spotify_Data(newToken)
+        save_User_Spotify_Data(request)
         return redirect('authorization:home')
         pass
 @api_view(['GET'])
@@ -84,11 +88,11 @@ def topSongs(request):
         except Exception as e:
                 print(e)
                 return HttpResponse("error")
-@api_view(['POST'])       
+       
 def save_User_Spotify_Data(request):
 # STEP 1 GET USER'S TOP SONGS 
         access_token = get_token(user=request.user)
-        params={"limit":10}
+        params={"limit":50}
         headers = {"Authorization": "Bearer "+ access_token}
         response = requests.get("https://api.spotify.com/v1/me/top/tracks",params=params, headers=headers)
         response=response.json()
@@ -131,9 +135,9 @@ def save_User_Spotify_Data(request):
                                                 genre_model, created=Genre.objects.get_or_create(
                                                 name = genre
                                         )
-                                                if not created: 
+                                                if created: 
                                                         genre_model.save()
-                                                        artist_model.genre.add(genre_model)
+                                                artist_model.genre.add(genre_model)
                                 song_model.artist.add(artist_model)
                         playlist.songs.add(song_model)
                 
@@ -142,6 +146,17 @@ def save_User_Spotify_Data(request):
                 
         
         return HttpResponse("test")
+        pass
+@api_view(['GET'])
+def profileData(request):
+        
+        playlist_collection = UserPlaylistCollection.objects.get(user=request.user)
+        top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
+        most_common_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs').first()
+        
+
+
+        return JsonResponse({'top genre': most_common_genre.name})
         pass
 
 

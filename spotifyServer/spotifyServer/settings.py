@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authorization',
-    'rest_framework',
     'spotifyapi',
+    'carjamz',
+    'rest_framework'
 ]
 # static files pathing
 STATIC_URL = 'static/'

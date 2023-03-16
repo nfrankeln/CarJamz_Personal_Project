@@ -16,7 +16,12 @@ def index(request):
 def register(request):
     try:
         User.objects.create_user(**request.data['signUpData'])
-        return HttpResponse("User Created")
+        http_request = request._request
+        email = request.data['signUpData']['email']
+        password = request.data['signUpData']['password']
+        user = authenticate(http_request, email=email, password=password)
+        login(http_request, user)
+        return JsonResponse({'success': True})
     except Exception as e:
         print(e)
         return HttpResponse("User Creation Failed")
@@ -48,7 +53,7 @@ def is_authenticated(request):
         get_token(user)
         permission=True
     except:
-        print("no toke")
+        print("no token")
 
     if request.user.is_authenticated:
         return JsonResponse({'is_authenticated': True,'permission':permission})
