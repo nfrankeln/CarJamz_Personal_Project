@@ -7,6 +7,7 @@ a{
     display: flex;
     flex-direction: column;
 }
+
 #navbar{
     display: flex;
     justify-content: space-between;
@@ -14,23 +15,38 @@ a{
     background: black;
     height: 10%;
 }
+#navbar-child-links{
+    width: 65%;
+}
 #navbar-links{
     display: flex;
     justify-content: space-around;
+    
 }
 #navbar-links li{
     list-style-type: none;
 }
 #navbar-links li a{
     color: white;
+    font-size: 2rem;
+    padding: 0;
+    
 }
 #navbar-links li a:hover{
     color: aquamarine;
 }
-#navbar-child-links{
-    width:50%;
-}
+/* #navbar-child-links{
+    max-width:50%;
+} */
 #navbar-child-logo a{
     text-decoration: none;
     color:white;
+}
+ul{
+    padding:0;
+}
+#logout{
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

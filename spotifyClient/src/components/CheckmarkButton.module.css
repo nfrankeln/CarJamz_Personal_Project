@@ -1,0 +1,35 @@
+
+    
+    
+  .roundButton{
+    --height:1rem;
+    --width:1rem;
+    --color:green;
+    height:var(--width);
+    width:var(--width);
+    border-radius:50%;
+    border:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center
+  }
+  .tickLong {
+      position:absolute;
+      z-index:1;
+      width: calc(var(--width)/10);
+      height: calc(var(--width)/2);
+      background-color: var(--color);
+    transform:translateX(calc(var(--width)/-10))rotate(45deg);
+      transform-origin:bottom right;
+  }
+  
+  .tickShort {
+      position:absolute;
+      z-index:2;
+      width: calc(var(--width)/10);
+      height: calc(var(--width)/4);
+      background-color: var(--color);
+      transform: translateY(calc(var(--width)/8))rotate(-45deg);
+    transform-origin:bottom left;
+    
+  }

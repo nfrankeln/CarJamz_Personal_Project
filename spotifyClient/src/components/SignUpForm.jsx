@@ -1,9 +1,18 @@
 import './SignUpForm.css'
 import { useForm } from "react-hook-form";
 import axios from 'axios'
-export default function SignUpForm(){
+import { useNavigate } from 'react-router-dom';
+
+export default function SignUpForm(props){
+    const navigate = useNavigate()
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = signUpData => axios.post('api/register/',{signUpData});
+
+    const onSubmit = signUpData => axios.post('api/register/',{signUpData})
+    .then(response => props.setAuthenticated(response.data['success']))
+    .then(console.log(props))
+    .then(navigate('/profile'));
+    
     return(
         <div id="sign-up-form-body" >
             <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>

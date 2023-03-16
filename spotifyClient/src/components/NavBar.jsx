@@ -4,7 +4,6 @@ import axios from "axios";
 export default function NavBar(props)
 {
     const navigate = useNavigate()
-   
     //FUNCTIONS
     function logout(){
         axios.post('api/logout/')
@@ -20,9 +19,9 @@ export default function NavBar(props)
             <div id="navbar-child-links" >
                 <ul id="navbar-links">
                     <li><Link to="/">Home</Link></li>
-                    <li><Link>Users</Link></li>
+                    <li><Link to="/collaberate">Collaberate</Link></li>
                     {props.authenticated?<li><Link to="/profile">Profile</Link></li>:null}
-                    {props.authenticated?<li><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
+                    {props.authenticated?<li id='logout'><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
                 </ul>
             </div>
         </div>

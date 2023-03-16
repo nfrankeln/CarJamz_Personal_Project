@@ -29,6 +29,7 @@ p.secondary-font{
 }
 #playlist-card{
     border-color: black;
+    margin: 1rem;
 }
 #playlist-header{
     text-align: center;
