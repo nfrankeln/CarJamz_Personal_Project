@@ -1,11 +1,4 @@
-body{
-    margin:0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    font-size: 62.5%;
-    background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
-}
+
 p{
     font-size:1.6rem;
 }
@@ -40,6 +33,8 @@ p{
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    font-size: 62.5%;
+    background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
   }
   img, picture, video, canvas, svg {
     display: block;

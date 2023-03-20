@@ -1,7 +1,5 @@
 import { useEffect } from "react"
 import defaultProfileImage from '../assets/userProfile.png'
-import greenCheckmark from '../assets/checked.png'
-import xMark from '../assets/x-mark.png'
 import styles from './FoundUsersBox.module.css'
 import { Link } from "react-router-dom"
 import CheckmarkButton from "./CheckmarkButton"

@@ -1,4 +1,5 @@
 import crowd from '../assets/crowd.png'
+import number4 from'../assets/number4.svg'
 import './HomePage.css'
 import { FaSpotify,FaPeopleArrows,FaLessThan } from 'react-icons/fa';
 import {MdOutlinePlaylistAddCheckCircle} from 'react-icons/md'
@@ -21,12 +22,15 @@ export default function HomePage(props){
     return (
     <div className='container'>
         <div className="header">
-            <h2 className='text'>CARJAMZ</h2>
-            <p>mix the perfect playlist for your next road trip</p>
+            <p>Mix the perfect playlist for your next road trip in</p>
+            <div className='image-text'>
+            <img src={number4} alt="" />
+            <p>easy steps</p>
+            </div>
         </div>
 
         
-        <div className='body'>
+        <div className='main'>
         <div className='icons'>
                 <div className='icon'>
                     <RiAccountBoxLine/>
