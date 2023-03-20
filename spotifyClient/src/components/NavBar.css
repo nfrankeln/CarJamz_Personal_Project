@@ -1,52 +1,142 @@
-a{
-    text-decoration: none;
-}
-#app-container{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#navbar{
+.navbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: black;
-    height: 10%;
 }
-#navbar-child-links{
-    width: 65%;
+.brand-title{
+    font-size: 2rem;
+    color: white;
+    font-family: 'Lato';
+    margin: 1.5rem;
 }
-#navbar-links{
-    display: flex;
-    justify-content: space-around;
-    
+.navbar-links ul{
+    margin: 0;
+    padding: 0;
+    display: flex;  
 }
-#navbar-links li{
+.navbar-links li{
     list-style-type: none;
 }
-#navbar-links li a{
-    color: white;
-    font-size: 2rem;
-    padding: 0;
-    
+.navbar-links li a{
+    text-decoration: none; 
+    font-size: 1.5rem;
+    color: white; 
+    padding: 1rem;
+    display: block;
 }
-#navbar-links li a:hover{
-    color: aquamarine;
+.navbar-links li a:hover{
+    color: #20bead;
 }
-/* #navbar-child-links{
-    max-width:50%;
-} */
-#navbar-child-logo a{
-    text-decoration: none;
-    color:white;
-}
-ul{
-    padding:0;
-}
-#logout{
+.navbar-links li button{
     display: flex;
-  justify-content: space-between;
-  align-items: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    color: #20bead;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+input[type="checkbox"]:checked ~ #sidebarMenu {
+    transform: translateX(0);
+}
+
+input[type=checkbox] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+.sidebarIconToggle {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    top:2.5rem;
+    right: 1rem;
+    height: 22px;
+    width: 22px;
+    display: none;
+}
+@media (max-width:600px){
+    .sidebarIconToggle{
+        display: block;
+    }
+    .navbar-links{
+        position: absolute;
+        top:4rem;
+        z-index: 1;
+        text-align: center;
+        right:-250px;
+        transition: transform 350ms ease-in-out;
+    }
+    .navbar{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .navbar-links ul{
+        flex-direction: column;
+    }
+
+
+
+
+
+}
+.spinner {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+}
+.horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+.diagonal.part-1 {
+    position: relative;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    float: left;
+}
+.diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    opacity: 0;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(-135deg);
+    margin-top: -9px;
+}
+input[type="checkbox"]:checked ~ .navbar-links {
+    background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
+    position: absolute;
+    top:4rem;
+    z-index: 1;
+    width:101%;
+    text-align: center;
+    transform: translateX(-250px);
+    border-left: solid whitesmoke 1px;
 }

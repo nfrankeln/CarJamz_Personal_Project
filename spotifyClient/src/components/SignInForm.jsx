@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SignInForm(){
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = loginData => axios.post('api/login/',{loginData}).then(response => location.reload());
+    const onSubmit = loginData => axios.post('api/login/',{loginData}).then(response => navigate(''));
     
     return(
         <div id="sign-in-form-container">

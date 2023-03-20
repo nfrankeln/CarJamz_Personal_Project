@@ -11,7 +11,7 @@ export default function SignUpForm(props){
     const onSubmit = signUpData => axios.post('api/register/',{signUpData})
     .then(response => props.setAuthenticated(response.data['success']))
     .then(console.log(props))
-    .then(navigate('/profile'));
+    .then(navigate('/'));
     
     return(
         <div id="sign-up-form-body" >

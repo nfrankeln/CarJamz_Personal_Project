@@ -12,10 +12,11 @@ import { getCookie } from "./utils/cookie";
 
 
 function App() {
+
   // STATE
   const [authenticated, setAuthenticated] = useState(false);
   const [spotifyAuthorized,setSpotifyAuthorized] = useState(false)
-
+  //EFFECT
   useEffect(() => {
     axios.get('api/is_authenticated/')
         .then(response => {
@@ -33,10 +34,10 @@ function App() {
   
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<NavBar authenticated={authenticated}/>}>
-        <Route index element={<HomePage/>}></Route>
+    <Route element={<NavBar authenticated={authenticated}/>}>
+        <Route index element={<HomePage authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
         <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
-        <Route path="collaberate"element={<CollaberatePage/>}></Route>
+        <Route path="/collaberate"element={<CollaberatePage/>}></Route>
         <Route path="/profile" element={<ProfilePage spotifyAuthorized={spotifyAuthorized}/>}></Route>
       </Route>
       )
