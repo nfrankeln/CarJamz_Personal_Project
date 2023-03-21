@@ -136,7 +136,7 @@ input[type="checkbox"]:checked ~ .navbar-links {
     background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
     position: absolute;
     top:4rem;
-    z-index: 1;
+    z-index: 1000;
     width:101%;
     text-align: center;
     transform: translateX(-250px);

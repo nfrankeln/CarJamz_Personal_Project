@@ -23,8 +23,8 @@ export default function LoginButtonToggle(props){
         }
     return(
         <div className="btn-container">
-        <button className="login-btn-toggle btn1" onClick={(e)=>buttonColor(e)}>Sign In</button>
-        <button className="login-btn-toggle btn2" onClick={(e)=>buttonColor(e)}>Sign Up</button>
+        <button className="btn1" onClick={(e)=>buttonColor(e)}>Sign In</button>
+        <button className="btn2" onClick={(e)=>buttonColor(e)}>Sign Up</button>
        </div>
     )
 }

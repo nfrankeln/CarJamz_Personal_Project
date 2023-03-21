@@ -1,34 +1,14 @@
-.login-btn-toggle{
-    height: 2rem;
-    padding: .25em;
-    border-radius: 1rem;
-    
-    
-  }
+
   .btn1{
     z-index: 2;
-    position:relative;
-    padding:1%;
-    width:50%;
-    background-color: #20bead;
     color:white;
-    border: none;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #20bead;
+    
   }
   .btn2{
     z-index: 1; 
-    padding: 1%;
-    position: relative;
-    
-    width:50%;
-    background-color: #ddf0f0;
     color:black;
-    border: none;
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #ddf0f0;
   }
   .btn-container{
     display: flex;
@@ -39,4 +19,16 @@
     background-color: #ddf0f0;
     border: none;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  .btn-container button{
+    width:50%;
+    position:relative;
+    padding:1%;
+    border: none;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: .25em;
+    border-radius: 1rem;
   }

@@ -8,6 +8,6 @@
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
-    row-gap: 1em;
+    row-gap: 3em;
     padding-bottom: .5em;
 }

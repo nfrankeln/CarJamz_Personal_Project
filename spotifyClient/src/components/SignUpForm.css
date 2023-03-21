@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-around;
     flex: 1;
-    row-gap: 1em;
+    row-gap: 3em;
 }
 #sign-up-form-body{
     display: flex;

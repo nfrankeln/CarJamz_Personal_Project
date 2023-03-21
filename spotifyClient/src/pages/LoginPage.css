@@ -10,8 +10,9 @@
 #login-form-container{
     padding: 1em;
     max-width: 400px;
+    margin: 0 auto;
     flex:1 1 auto;
-    row-gap: 1em;
+    row-gap: 3em;
     background: white;
     display: flex;
     flex-direction: column;
