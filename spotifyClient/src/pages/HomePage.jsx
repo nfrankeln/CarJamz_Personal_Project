@@ -22,47 +22,43 @@ export default function HomePage(props){
     return (
     <div className='container'>
         <div className="header">
-            <p>Mix the perfect playlist for your next road trip in</p>
-            <div className='image-text'>
-            <img src={number4} alt="" />
-            <p>easy steps</p>
-            </div>
+            <p>Mix the perfect playlist for your next road trip</p>
+            <p>in <p id='colored-word'>four</p> easy steps</p>  
         </div>
 
         
         <div className='main'>
-        <div className='icons'>
-                <div className='icon'>
+        <ul className='icons'>
+               
+                <li className='icon'>    
                     <RiAccountBoxLine/>
                     <div>{step === 1 ? <Link to="/login">Create Account</Link> : <p>Create Account</p>}</div>
                     {step === 1 && <div className='step'><FaLessThan/></div>}
-                </div>
+                </li>
 
-            <div className='icons'>
-                <div className='icon'>
+                <li className='icon'>
                     <FaSpotify/>
                     <div>{step === 2 ? <button onClick={() => authorizeSpotify()}>Connect Spofity</button> :<p>Connect Spofity</p>}</div>
                     {step === 2 && <div className='step'><FaLessThan/></div>}
-                </div>
+                </li>
                 
-            </div>
-            <div className='icons'>
-                <div className='icon'>
+    
+            
+                <li className='icon'>
                     <FaPeopleArrows/>
                     <div><p>Compare Intrests</p></div>
                     {step === 3 && <div className='step'><FaLessThan/></div>}
-                </div>
+                </li>
                   
-                </div>
-            <div className='icons'>
-                <div className='icon'>
+              
+       
+                <li className='icon'>
                     <MdOutlinePlaylistAddCheckCircle/>
                     <div><p>Generate Playlists</p></div>
                     {step === 4 && <div className='step'><FaLessThan/></div>}
-
-                </div>
-            </div>
-        </div>
+                </li>
+            
+        </ul>
         
         </div> 
         <div id='footer'>

@@ -1,22 +1,20 @@
 .header{
     top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
     margin-left: 2rem;
     margin-right: 2rem;
 }
 .header p{
-  text-align: center;
+  text-align: left;
   font-family: 'Lato';
   font-weight: 700;
   color: azure;
-  font-size: 1rem;
+  font-size: 1.6rem;
   margin: 0;
 }
-.header p:first-child{
-  font-size: 1.6rem;
+#colored-word{
+  display: inline;
+  color: yellow;
+  text-decoration: underline;
 }
 .main{
   margin-inline: auto;
@@ -29,6 +27,7 @@
 .container {
   height:100vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
   margin-top: 2rem;
   gap: 5rem;
@@ -52,6 +51,7 @@
     font-size: 1rem;
   }
   #footer{
+    display: contents;
     min-height: 50px;
     flex-shrink: 0;
   }
@@ -65,25 +65,23 @@ align-items: flex-start;
 flex-direction: column;
 
   }
-  .icons div{
+  .icons li{
     display: flex;
     align-items: center;
+    font-size: 2rem;
+    color: white;
+    gap:1rem;
+    flex:1;
   }
-.icon{
-  font-size: 2rem;
-  color: white;
-  gap:1rem;
-  flex:1;
-}
-.icon p {
+.icons li p {
   font-size: 2rem;
   
 }
-.icon a{
+.icons li a{
   color: white;
   text-decoration: none;
 }
-.icon button {
+.icons li button {
   background: transparent;
   border: none;
   color: inherit;
