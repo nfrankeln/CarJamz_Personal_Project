@@ -12,7 +12,6 @@ import { getCookie } from "./utils/cookie";
 
 
 function App() {
-
   // STATE
   const [authenticated, setAuthenticated] = useState(false);
   const [spotifyAuthorized,setSpotifyAuthorized] = useState(false)
@@ -34,11 +33,11 @@ function App() {
   
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<NavBar authenticated={authenticated}/>}>
-        <Route index element={<HomePage authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
-        <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
-        <Route path="/collaberate"element={<CollaberatePage/>}></Route>
-        <Route path="/profile" element={<ProfilePage spotifyAuthorized={spotifyAuthorized}/>}></Route>
+    <Route path="/" element={<NavBar authenticated={authenticated}/>}>
+        <Route path="" element={<HomePage authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
+        <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
+        <Route path="collaberate"element={<CollaberatePage/>}></Route>
+        <Route path="profile" element={<ProfilePage spotifyAuthorized={spotifyAuthorized}/>}></Route>
       </Route>
       )
 )

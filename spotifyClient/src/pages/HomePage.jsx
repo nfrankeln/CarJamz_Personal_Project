@@ -1,24 +1,27 @@
 import crowd from '../assets/crowd.png'
 import number4 from'../assets/number4.svg'
 import './HomePage.css'
-import { FaSpotify,FaPeopleArrows,FaLessThan } from 'react-icons/fa';
+import { FaSpotify,FaPeopleArrows,FaGreaterThan } from 'react-icons/fa';
 import {MdOutlinePlaylistAddCheckCircle} from 'react-icons/md'
 import {RiAccountBoxLine} from 'react-icons/ri'
+import {GiCheckMark} from 'react-icons/gi'
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import {authorizeSpotify} from '../utils/authorizeSpotify'
 export default function HomePage(props){
+
     const [step,setStep] = useState(1)
     useEffect(()=>{
         console.log(props)
         if(props.authenticated){
             setStep(prevstep => prevstep+ 1)}
-        // if(props.spotifyAuthorized){
-        //     setStep(prevstep => prevstep + 1)
-        // }
+        if(props.spotifyAuthorized){
+            setStep(prevstep => prevstep + 1)
+        }
     }
         ,[props.authenticated,props.spotifyAuthorized])
+    
     return (
     <div className='container'>
         <div className="header">
@@ -28,37 +31,63 @@ export default function HomePage(props){
 
         
         <div className='main'>
-        <ul className='icons'>
-               
-                <li className='icon'>    
-                    <RiAccountBoxLine/>
-                    <div>{step === 1 ? <Link to="/login">Create Account</Link> : <p>Create Account</p>}</div>
-                    {step === 1 && <div className='step'><FaLessThan/></div>}
+        <ol className='icons'>
+            <div className='listwrap'>
+                {(step === 1 ? <div className='step'><FaGreaterThan/></div>: <div className='step'></div>) }  
+                <li>
+                <div className='icon'>
+                    <div><RiAccountBoxLine/></div>
+                    <div>{step === 1 ? <Link to="/login">Create Account</Link> : <p className='strikethrough'>Create Account</p>}</div>
+                    </div>
+                {step > 1 ? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> } 
                 </li>
-
-                <li className='icon'>
-                    <FaSpotify/>
-                    <div>{step === 2 ? <button onClick={() => authorizeSpotify()}>Connect Spofity</button> :<p>Connect Spofity</p>}</div>
-                    {step === 2 && <div className='step'><FaLessThan/></div>}
+            </div>
+                
+            <div className='listwrap'>
+            {step === 2 && <div className='step'><FaGreaterThan/></div>}
+            {((step < 2) || (step > 2)) && <div className='step'></div> }
+            
+                <li>
+                    <div className='icon'>
+                    <div><FaSpotify/></div>
+                    <div>
+                         {step === 2 && <button onClick={() => authorizeSpotify()}>Connect Spotify</button>}
+                         {step < 2  && <p>Connect Spotify</p>}
+                         {step > 2  && <p className='strikethrough'>Connect Spotify</p>}
+                    </div>
+                    </div>
+                    {step > 2? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> }
                 </li>
+            </div>
                 
     
+            <div className='listwrap'>
+            {step === 3 && <div className='step'><FaGreaterThan/></div>}
+            {((step < 3) || (step > 3)) && <div className='step'></div> }
             
-                <li className='icon'>
-                    <FaPeopleArrows/>
+                <li>
+                    <div className='icon'>
+                    <div><FaPeopleArrows/></div>
                     <div><p>Compare Intrests</p></div>
-                    {step === 3 && <div className='step'><FaLessThan/></div>}
+                    </div>
+                    {step > 3? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> }
                 </li>
+            </div>
                   
               
-       
-                <li className='icon'>
-                    <MdOutlinePlaylistAddCheckCircle/>
-                    <div><p>Generate Playlists</p></div>
-                    {step === 4 && <div className='step'><FaLessThan/></div>}
-                </li>
+            <div className='listwrap'>
+            {step === 4 && <div className='step'><FaGreaterThan/></div>}
+            {step < 4  && <div className='step'></div> }
             
-        </ul>
+                <li>
+                <div className='icon'>
+                    <div><MdOutlinePlaylistAddCheckCircle/></div>
+                    <div><p>Generate Playlists</p></div>
+                </div>
+                {step > 4? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> } 
+                </li>
+            </div>
+        </ol>
         
         </div> 
         <div id='footer'>

@@ -1,14 +1,24 @@
 import './SignInForm.css'
 import { useForm } from "react-hook-form";
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,redirect } from 'react-router-dom';
 
 
 
 export default function SignInForm(){
-    const navigate = useNavigate()
+    const nav= useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = loginData => axios.post('api/login/',{loginData}).then(response => navigate(''));
+    const onSubmit = async (loginData) => {
+        try {
+          const response = await axios.post("api/login/", { loginData });
+          nav("../", { replace: true });
+          nav(0)
+        } catch (error) {
+          // Handle the error here
+          console.error(error);
+        }
+      };
+      
     
     return(
         <div id="sign-in-form-container">

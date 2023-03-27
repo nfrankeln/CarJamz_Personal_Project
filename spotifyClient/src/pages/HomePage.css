@@ -13,7 +13,7 @@
 }
 #colored-word{
   display: inline;
-  color: yellow;
+  color: aquamarine;
   text-decoration: underline;
 }
 .main{
@@ -30,7 +30,7 @@
   align-items: center;
   flex-direction: column;
   margin-top: 2rem;
-  gap: 5rem;
+  gap: 2rem;
   }
  
   .homebutton{
@@ -49,6 +49,11 @@
   }
   .step{
     font-size: 1rem;
+    min-width: 2rem;
+    color: aquamarine;
+  }
+  .strikethrough{
+    text-decoration: line-through;
   }
   #footer{
     display: contents;
@@ -59,20 +64,45 @@
     max-width: 100%;
     height: auto;
   }
+.listwrap{
+  display: flex;
+  align-items: center;
+}
   .icons{
 display: flex;
 align-items: flex-start;
 flex-direction: column;
+padding: 0;
+counter-reset: steps;
+
 
   }
-  .icons li{
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    color: white;
-    gap:1rem;
-    flex:1;
+  .icons li::before{
+    content: counter(steps);
+  counter-increment: steps;
   }
+  .icons li{
+  
+  display: flex;
+  font-size: 2rem;
+  color: white;
+  gap:1rem;
+  flex:1;
+  align-items: center;
+  }
+.icon{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 2rem;
+  color: white;
+  min-width: 270px;
+  
+  
+}
+.checkmark{
+color: aquamarine ;
+}
 .icons li p {
   font-size: 2rem;
   

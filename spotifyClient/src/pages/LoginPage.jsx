@@ -9,12 +9,11 @@ export default function LoginPage(props){
     
     const[selectedButton,setSelectedButton]=useState(null)
     return(
-        <div id='login-page-container'>
             <div id='login-form-container'>
             <LoginButtonToggle selectedButton={selectedButton} setSelectedButton={setSelectedButton}/>
             {selectedButton==document.querySelector(('.btn1'))?<SignInForm/>:<SignUpForm setAuthenticated={props.setAuthenticated}/>}
             </div>
-        </div>
+        
     )
     
 }
