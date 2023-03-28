@@ -68,7 +68,7 @@ export default function HomePage(props){
                 <li>
                     <div className='icon'>
                     <div><FaPeopleArrows/></div>
-                    <div><p>Compare Intrests</p></div>
+                    <div><Link to="collaberate">Compare Intrests</Link></div>
                     </div>
                     {step > 3? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> }
                 </li>
