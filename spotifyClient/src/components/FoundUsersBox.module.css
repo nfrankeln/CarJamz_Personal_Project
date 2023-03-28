@@ -1,50 +1,83 @@
-/* #user-box{
-    max-height: 5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding:1rem;
-    margin-top: 1rem;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-} */
-.userCard{
-    margin-top: 5rem;
-    padding: 1rem;
-    min-height: 15rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap:2rem;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-}
-.userHead{
-    text-align: center;
-}
-.userHead h2{
-    text-align: center;
-    padding: 1rem;
-    border-bottom: solid black 1px;
+
+h3 {
+	margin: 10px 0;
 }
 
-.userBody{
-    display: flex;
-    justify-content: space-around;
+h6 {
+	margin: 5px 0;
+	text-transform: uppercase;
 }
 
+p {
+	font-size: 14px;
+	line-height: 21px;
+}
 
-img{
-    max-height: 100%;
+.cardContainer {
+	background-color: #231E39;
+	border-radius: 5px;
+	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+	color: #B3B8CD;
+	padding-top: 30px;
+	position: relative;
+	width: 350px;
+	max-width: 100%;
+	text-align: center;
 }
-.profileName{
-    display: inherit;
-    justify-content: center;
-    align-items: center;
+
+.cardContainer .pro {
+	color: white;
+	background-color: inherit;
+	border-radius: 3px;
+	font-size: 28px;
+	font-weight: bold;
+	padding: 3px 7px;
+	position: absolute;
+	top: 15px;
+	right: 15px;
 }
-.profileName h2{
-    text-transform: capitalize;
-    text-align: center;
+
+.cardContainer .round {
+	border: 1px solid #03BFCB;
+	border-radius: 50%;
+	padding: 7px;
+    max-width: 45%;
+    margin-inline: auto;
 }
-.profileButton{ 
-   display: inherit;
-   align-items: center;
+
+button.primary {
+	background-color: #03BFCB;
+	border: 1px solid #03BFCB;
+	border-radius: 3px;
+	color: #231E39;
+	font-family: Montserrat, sans-serif;
+	font-weight: 500;
+	padding: 10px 25px;
+}
+
+button.primary.ghost {
+	background-color: transparent;
+	color: #02899C;
+}
+
+.skills {
+	background-color: #1F1A36;
+	text-align: left;
+	padding: 15px;
+	margin-top: 30px;
+}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.skills ul li {
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
 }
