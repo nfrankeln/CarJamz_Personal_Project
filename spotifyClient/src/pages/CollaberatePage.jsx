@@ -8,7 +8,7 @@ export default function CollaberatePage(){
     return(
         <div id="collab-container">
             <SearchBox users={users} setUsers={setUsers} />
-            {users  && <FoundUsersBox users={users}/>}      
+            {users  && <FoundUsersBox users={users} setUsers={setUsers}/>}      
         </div>
 
 

@@ -1,12 +1,13 @@
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 import styles from './FoundUsersBox.module.css'
 export default function FoundUsersBox(props){
     useEffect(()=>console.log(props.users))
     return(
       <div className={styles.cardContainer}>
       <img className={styles.round} src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
-      <h3>Netanel Frankel</h3>
-      <span className={styles.pro}>X</span>
+      <h3>{props.users.firstName} {props.users.lastName}</h3>
+      <button className={styles.pro} onClick={()=> props.setUsers(null)}>X</button>
       <div className={styles.buttons}>
         <button className={styles.primary}>
           Add
@@ -18,11 +19,7 @@ export default function FoundUsersBox(props){
       <div className={styles.skills}>
         <h6>Top Genres</h6>
         <ul>
-          <li>Pop</li>
-          <li>Rock</li>
-          <li>Metal</li>
-          <li>Rap</li>
-          <li>Country</li>
+          {props.users.top_five_genres.map((genre)=><li>{genre}</li>)}
         </ul>
       </div>
     </div>

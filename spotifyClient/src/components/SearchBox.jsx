@@ -17,7 +17,8 @@ export default function SearchBox(props){
         props.setUsers({
             'url':`${response.data['pk']}`,
             'firstName':response.data['first_name'],
-            'lastName':response.data['last_name']})
+            'lastName':response.data['last_name'],
+            'top_five_genres':response.data['top_five_genre']})
     }
     
   else setErrorMessage(true)})
