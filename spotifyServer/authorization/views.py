@@ -33,6 +33,7 @@ def user_login(request):
     password = request.data['loginData']['password']
     # email = request.POST['email']
     # password = request.POST['password']
+    print("here")
     user = authenticate(http_request, email=email, password=password)
     if user is not None:
         login(http_request, user)

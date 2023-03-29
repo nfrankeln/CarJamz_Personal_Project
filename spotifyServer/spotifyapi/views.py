@@ -64,7 +64,7 @@ def spotfiy_callback(request):
         error = response.get('error')
         
         newToken,created= SpotifyToken.objects.get_or_create(
-                user=request.user,
+                user = request.user,
                 refresh_token = refresh_token,
                 access_token = access_token,
                 access_token_expiration=timezone.now() + timezone.timedelta(seconds=expires_in),
@@ -143,7 +143,7 @@ def save_User_Spotify_Data(request):
                 
 
         
-                
+                                           
         
         return HttpResponse("test")
         pass
@@ -152,11 +152,11 @@ def profileData(request):
         
         playlist_collection = UserPlaylistCollection.objects.get(user=request.user)
         top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
-        most_common_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs').first()
+        top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5]
         
 
 
-        return JsonResponse({'top genre': most_common_genre.name})
+        return JsonResponse({'top genres': top_five_genre})
         pass
 
 
