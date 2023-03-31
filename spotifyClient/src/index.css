@@ -34,7 +34,7 @@ p{
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-size: 62.5%;
-    background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
+    background-color: #28223F;
   }
   img, picture, video, canvas, svg {
     display: block;

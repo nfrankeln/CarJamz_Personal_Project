@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import styles from './SearchBox.module.css'
 import defaultProfilePic from '../assets/userProfile.png'
 
-export default function SearchBox(props){
+export default function SearchBox({foundUser,setFoundUser}){
     const { register, handleSubmit} = useForm();
     const [errorMessage,setErrorMessage] = useState(null)
     const onSubmit = searchData => 
@@ -14,8 +14,8 @@ export default function SearchBox(props){
         }
       })
     .then((response) => {if(response.data['found']){
-        props.setUsers({
-            'url':`${response.data['pk']}`,
+        setFoundUser({
+            'id':`${response.data['pk']}`,
             'firstName':response.data['first_name'],
             'lastName':response.data['last_name'],
             'top_five_genres':response.data['top_five_genre']})

@@ -13,8 +13,13 @@ import { getCookie } from "./utils/cookie";
 
 function App() {
   // STATE
+  // check user logged in
   const [authenticated, setAuthenticated] = useState(false);
+  // check user had authorized spotify
   const [spotifyAuthorized,setSpotifyAuthorized] = useState(false)
+  //check if user has added other appusers for playlist generation
+  const [addedUsers,setAddedUsers]=useState([])
+  
   //EFFECT
   useEffect(() => {
     axios.get('api/is_authenticated/')
@@ -34,9 +39,9 @@ function App() {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<NavBar authenticated={authenticated}/>}>
-        <Route path="" element={<HomePage authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
+        <Route path="" element={<HomePage addedUsers={addedUsers} setAddedUsers={setAddedUsers} authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
         <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
-        <Route path="collaberate"element={<CollaberatePage/>}></Route>
+        <Route path="collaberate"element={<CollaberatePage addedUsers={addedUsers} setAddedUsers={setAddedUsers}/>}></Route>
         <Route path="profile" element={<ProfilePage spotifyAuthorized={spotifyAuthorized}/>}></Route>
       </Route>
       )

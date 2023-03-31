@@ -27,7 +27,7 @@ export default function NavBar(props)
 
             <div className="navbar-links">
                 <ul>
-                    <li><Link to="/">Users</Link></li>
+                    <li><Link to="/">Home</Link></li>
                     <li><Link to="/collaberate">FAQ</Link></li>
                     {props.authenticated?<li><Link to="/profile">Account</Link></li>:null}
                     {props.authenticated?<li id='logout'><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}

@@ -9,18 +9,20 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {authorizeSpotify} from '../utils/authorizeSpotify'
-export default function HomePage(props){
+export default function HomePage({users,setUsers,authenticated,spotifyAuthorized}){
 
     const [step,setStep] = useState(1)
     useEffect(()=>{
-        console.log(props)
-        if(props.authenticated){
+        if(authenticated){
             setStep(prevstep => prevstep+ 1)}
-        if(props.spotifyAuthorized){
+        if(spotifyAuthorized){
             setStep(prevstep => prevstep + 1)
+        if(users){
+            setStep(prevstep => prevstep +1)
+        }
         }
     }
-        ,[props.authenticated,props.spotifyAuthorized])
+        ,[authenticated,spotifyAuthorized])
     
     return (
     <div className='container'>
