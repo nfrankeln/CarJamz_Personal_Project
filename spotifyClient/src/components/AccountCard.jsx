@@ -8,10 +8,10 @@ export default function AccountCard({foundUser}){
         setModalState(!modalState)
     }
     return(<>
-        <div className={styles.cardContainer}>
-        <img className={styles.round} src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+        <div className={styles.accountCard}>
+        <img className={styles.roundImage} src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
         <p>{foundUser.firstName} {foundUser.lastName}</p>
-        <div className={styles.skills}>
+        <div className={styles.accountGenres}>
           <h6>Top Genres</h6>
           <ul>
             {foundUser.top_five_genres.map((genre)=><li>{genre}</li>)}

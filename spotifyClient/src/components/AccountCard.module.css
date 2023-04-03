@@ -1,5 +1,5 @@
 
-.cardContainer {
+.accountCard {
 	margin-inline: auto;
 	margin-bottom: 2rem;
 	background-color: #231E39;
@@ -8,21 +8,21 @@
 	color: #B3B8CD;
 	padding-top: 1.6rem;
 	position: relative;
-	width: 350px;
+	width: 400px;
 	max-width: 100%;
 	text-align: center;
 }
 
 
 
-.cardContainer .round {
+.accountCard .roundImage {
 	border: 1px solid #03BFCB;
 	border-radius: 50%;
 	padding: .7rem;
     max-width: 40%;
     margin-inline: auto;
 }
-.cardContainer p{
+.accountCard p{
 	font-size: 2.5rem;
 	text-transform: capitalize;
 	margin-top: 1rem;
@@ -45,25 +45,25 @@ button.danger{
 .danger:hover{
 	border-color: #2D2747;
 }
-.skills h6{
+.accountGenres h6{
 	font-size: 1.6rem;
 	margin-bottom: 0.8rem;
 }
-.skills {
+.accountGenres {
 	background-color: #1F1A36;
 	text-align: left;
 	padding: 15px;
 	margin-top: 30px;
 }
 
-.skills ul {
+.accountGenres ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	margin-bottom: 1rem;
 }
 
-.skills ul li {
+.accountGenres ul li {
 	border: 1px solid #2D2747;
 	border-radius: 2px;
 	display: inline-block;

@@ -1,0 +1,80 @@
+.selected-genres-form input[type=checkbox]{
+    display: none;
+}
+.selected-genres-form input[type=checkbox]:checked + .genre{
+    background-color: rgb(3, 191, 203);
+    color: black;
+}
+.selected-genres-form{
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
+    gap: 5rem;
+}
+.selected-genres-form label{
+    padding: .7rem;
+    color:#b3b8cd;
+    border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 1.6rem;
+	color: #b3b8cd;
+	text-transform: capitalize;
+    cursor: pointer;
+}
+.selected-genres-form label:hover{
+    border: 1px solid #353536;
+}
+.selected-genres-form ul{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: .7rem;
+    row-gap: .4rem;
+}
+button.primary {
+	background-color: #03BFCB;
+	border: 1px solid #03BFCB;
+	border-radius: 3px;
+	color: #231E39;
+	font-weight: 500;
+	padding: 1rem 2.5rem;
+    font-size: 2rem;
+    width:100%
+}
+@media screen and (min-width: 768px) {
+    /* For screens with a minimum width of 768px (medium screens) */
+    button.primary {
+      width: min(75%, 600px); /* Set the width to 75% of the container width or 600px, whichever is smaller */
+    }
+  }
+
+  .shake {
+    color: red;
+    animation-name: shake;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    transform-origin: 50% 100%;
+  }
+  
+  .bounce {
+    animation: bounce 1s ease 1;
+    color: red;
+  }
+  @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-15px);}
+      60% {transform: translateY(-7.5px);}
+  }
+  .styledNumber{
+    color: #03BFCB;
+  }
+  .header{
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .counter{
+    display: flex;
+  }

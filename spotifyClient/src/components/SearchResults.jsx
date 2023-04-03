@@ -1,8 +1,8 @@
-import styles from './FoundUsersBox.module.css'
+import styles from './SearchResults.module.css'
 import { useNavigate} from 'react-router-dom';
 import {FaPlus,FaMinus} from 'react-icons/fa'
 
-export default function FoundUsersBox({ addedUsers, setAddedUsers, foundUser,setFoundUser}){
+export default function SearchResults({ addedUsers, setAddedUsers, foundUser,setFoundUser}){
     const navigate= useNavigate()
     function checkForID(addedUsers,foundUser){
     for(const item of addedUsers){
@@ -27,7 +27,9 @@ export default function FoundUsersBox({ addedUsers, setAddedUsers, foundUser,set
                 onClick={() => {
                   checkForID(addedUsers,foundUser) ? 
                   setAddedUsers(addedUsers.filter(user => user.id !== foundUser.id)||[]) :
-                  setAddedUsers([...addedUsers,foundUser])}}>
+                  setAddedUsers([...addedUsers,foundUser]);
+                  setFoundUser(null)
+                  }}>
                 <div>{checkForID(addedUsers,foundUser) ?<FaMinus/>:<FaPlus/>}</div></button>
       </div>
       </div>
