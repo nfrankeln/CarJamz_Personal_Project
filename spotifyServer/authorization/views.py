@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.conf import settings
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate,login,logout
-from authorization.models import AppUser as User
+from authorization.models import AppUser 
+from spotifyapi.models import UserPlaylistCollection, Playlist,Genre
+from django.db.models import Count
 from spotifyapi.utils import get_token
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
@@ -60,4 +62,24 @@ def is_authenticated(request):
         return JsonResponse({'is_authenticated': True,'permission':permission})
     else:
         return JsonResponse({'is_authenticated': False,'permission':permission})
-
+@api_view(['GET'])
+def account_information(request):
+    try:
+        currentUser = AppUser.objects.get(email=request.user)
+        first_name = currentUser.first_name
+        last_name= currentUser.last_name
+# TODO add way to check if user is just signed up but not authorized to spotfiy
+        if currentUser:
+            playlist_collection = UserPlaylistCollection.objects.get(user=currentUser)
+            top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
+            top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
+            top_five_genre=list(top_five_genre)
+            
+    except Exception as e:
+        print(e)
+    return JsonResponse({
+        'id':currentUser.pk,
+        'firstName':first_name,
+        'lastName':last_name,
+        'top_five_genres':top_five_genre
+    },safe=False)

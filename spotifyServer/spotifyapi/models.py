@@ -14,7 +14,7 @@ class UserPlaylistCollection(models.Model):
 # Contains genre 
 class Genre(models.Model):
     name = models.CharField(max_length = 255)
-# Contains spotify id for artists and thier related genres
+# Contains spotify id for artists and their related genres
 class Artist(models.Model):
     name = models.CharField(max_length = 255)
     spotify_id = models.CharField(max_length = 255)

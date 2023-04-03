@@ -2,13 +2,17 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view
 from authorization.models import AppUser
-from spotifyapi.models import UserPlaylistCollection, Playlist,Genre
+from spotifyapi.models import UserPlaylistCollection, Playlist,Genre,Artist
 from django.db.models import Count
 from django.core import serializers
 from scipy.stats import pearsonr
 import numpy as np
 from django.db.models import Sum
+import requests
+import random
+import math
 from carjamz.utils import get_n_items
+from spotifyapi.utils import get_token
 # Create your views here.
 @api_view(['GET'])
 def getuser(request):
@@ -20,7 +24,6 @@ def getuser(request):
         playlist_collection = UserPlaylistCollection.objects.get(user=user)
         top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
         top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
-        print(top_five_genre)
         return JsonResponse({'found':True,
             'first_name':user.first_name,
                              'last_name':user.last_name,
@@ -60,33 +63,18 @@ def common_intrests(request):
 
 # create a list of all genres
     all_genres = list(set([g['name'] for user in counters for g in user]))
-    print(len(all_genres))
-
 # # create a matrix of genre counts for each user
-    matrix = np.zeros((len(all_genres), len(counters)))
-    
-    for i, genre in enumerate(all_genres):
-        
-        for j, user in enumerate(counters):
-            
+    matrix = np.zeros((len(all_genres), len(counters))) 
+    for i, genre in enumerate(all_genres):   
+        for j, user in enumerate(counters): 
             count = [g['name__count'] for g in user if g['name'] == genre]
-
             matrix[i,j] = count[0] if count else 0
-    print(matrix)
     results=[]
     for index,row in enumerate(matrix):
         nonzeros = 0
         for element in row:
             if element != 0:
                 nonzeros+=1
-        print("genre",all_genres[index])
-        print('row',row)
-        print("nonzerose",nonzeros)
-        print("power",10**nonzeros)
-        print('len',len(row))
-        print('sum',sum(row))
-        print('avg',sum(row)/len(row))
-        print("avg*power",sum(row)/len(row)*(10**nonzeros))
         row = (index,sum(row)/len(row)*(10**nonzeros))
         results.append(row)
     print(results)
@@ -99,3 +87,55 @@ def common_intrests(request):
         top_ten_genres.append(all_genres[item[0]])
     print(top_ten_genres)
     return JsonResponse({'topGenres':top_ten_genres})
+@api_view(['POST'])
+def reccomendation(request):
+    data=request.data
+    data=data['checkboxes']
+    # GET ALL GENRES with value of true
+    genres=[]
+    for key, value in data.items():
+        if value:
+            genres.append(key)
+
+    # get how many artists to get by genre limit 5 for spotify API example  [genre1,genre2] => 3,2 if 3 => 3,1,1 
+    dividend = 5
+    divisor = len(genres)
+
+    quotient = dividend // divisor
+    remainder = dividend % divisor
+
+    print("Quotient:", quotient)
+    print("Remainder:", remainder)
+    amount_from_each=[]
+    for item in range(0,divisor):
+        # first genre gets priority and gets remainder if 5 seed spots cant be equally divided
+        if item == 0:
+            amount_from_each.append(quotient+remainder)
+        else:
+            amount_from_each.append(quotient)
+    
+    seed_artists=[]
+    for index,genre in enumerate(genres):
+        # get all artists with genre name
+        artists = Artist.objects.filter(genre__name = genre)
+        artist_ids = list(artists.values_list('spotify_id', flat=True))
+        # initialize how many artist ids we want
+        sample_size = amount_from_each[index]
+        # account for edge case where we want more then availible 
+        if len(artist_ids) < sample_size:
+            sample_size = len(artist_ids)
+        # get random index from 0 -length of availible ids
+        randomIndexValues = random.sample(range(len(artist_ids)), sample_size)
+        # use those indexes to grab random associated artists
+        for number in randomIndexValues:
+            seed_artists.append(artist_ids[number])
+    # api takes comma seperated string of artist ids
+    spotify_params={
+        'seed_artists':",".join(seed_artists)
+    }
+
+    url='https://api.spotify.com/v1/recommendations'
+    headers1 = {"Authorization": "Bearer " + get_token(request.user)}
+    response = requests.get(url,params=spotify_params, headers=headers1).json()
+   
+    return JsonResponse(response)

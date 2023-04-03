@@ -6,6 +6,7 @@ urlpatterns = [
     path('api/register/',views.register),
     path('api/login/',views.user_login),
     path('api/logout/',views.user_logout),
+    path('api/account/information/',views.account_information),
     path('api/is_authenticated/',views.is_authenticated),
     re_path(r'.*', views.index)
 ]
