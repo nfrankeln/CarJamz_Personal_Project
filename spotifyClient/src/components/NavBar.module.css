@@ -2,39 +2,40 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 4.8rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    margin-bottom: 2rem;
 }
-.brand-title{
-    font-size: 2rem;
+.brandTitle{
+    font-size: 3rem;
     color: white;
-    font-family: 'Lato';
+    font-family: 'Rock Salt', cursive;
     margin: 1.5rem;
 }
 
-.navbar-links ul{
+.navbarLinks ul{
     margin: 0;
     padding: 0;
     display: flex;  
 }
-.navbar-links li{
+.navbarLinks li{
     list-style-type: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.navbar-links li a{
+.navbarLinks li a{
     text-decoration: none; 
-    font-size: 1.5rem;
+    font-size: 3rem;
     color: white; 
     padding: 1rem;
     display: block;
+    font-weight: 700;
 }
-.navbar-links li a:hover{
+.navbarLinks li a:hover{
     color: #20bead;
 }
-.navbar-links li button{
+.navbarLinks li button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +51,7 @@ input[type="checkbox"]:checked ~ #sidebarMenu {
     transform: translateX(0);
 }
 
-input[type=checkbox] {
+.openSidebarMenu[type=checkbox] {
     transition: all 0.3s;
     box-sizing: border-box;
     display: none;
@@ -73,7 +74,7 @@ input[type=checkbox] {
     .sidebarIconToggle{
         display: block;
     }
-    .navbar-links{
+    .navbarLinks{
         position: absolute;
         top:4rem;
         z-index: 1;
@@ -85,7 +86,7 @@ input[type=checkbox] {
         flex-direction: column;
         align-items: flex-start;
     }
-    .navbar-links ul{
+    .navbarLinks ul{
         flex-direction: column;
     }
 
@@ -109,13 +110,13 @@ input[type=checkbox] {
     float: left;
     margin-top: 3px;
 }
-.diagonal.part-1 {
+.diagonal.part1 {
     position: relative;
     transition: all 0.3s;
     box-sizing: border-box;
     float: left;
 }
-.diagonal.part-2 {
+.diagonal.part2 {
     transition: all 0.3s;
     box-sizing: border-box;
     position: relative;
@@ -127,19 +128,19 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
     box-sizing: border-box;
     opacity: 0;
 }
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part1 {
     transition: all 0.3s;
     box-sizing: border-box;
     transform: rotate(135deg);
     margin-top: 8px;
 }
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part2 {
     transition: all 0.3s;
     box-sizing: border-box;
     transform: rotate(-135deg);
     margin-top: -9px;
 }
-input[type="checkbox"]:checked ~ .navbar-links {
+input[type="checkbox"]:checked ~ .navbarLinks {
     background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
     position: absolute;
     top:4rem;

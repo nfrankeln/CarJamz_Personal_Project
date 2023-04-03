@@ -30,10 +30,10 @@ p{
   html, body {
     height: 100%;
   }
+  html{font-size: 62.5%;}
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    font-size: 62.5%;
     background-color: #28223F;
   }
   img, picture, video, canvas, svg {
@@ -43,8 +43,39 @@ p{
   input, button, textarea, select {
     font: inherit;
   }
-  p, h1, h2, h3, h4, h5, h6 {
+  p, h1, h2, h3, h4, h5, h6, a , button {
     overflow-wrap: break-word;
+    font-family: 'Lato', sans-serif;
+  }
+  p{
+    font-size: 1.6rem;
+    line-height: 1.75;
+    font-weight: 400;
+  }
+  h1{
+    font-size: 3rem;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+  h2{
+    font-size: 2.5rem;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  h3{
+    font-size: 1.5rem;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  h4, h5, h6{
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+  input{
+    font-size: 1.6rem;
+  }
+  ul li{
+    list-style-type: none;
   }
   #root, #__next {
     isolation: isolate;

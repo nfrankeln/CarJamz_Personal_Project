@@ -1,0 +1,83 @@
+
+.cardContainer {
+	margin-inline: auto;
+	margin-bottom: 2rem;
+	background-color: #231E39;
+	border-radius: 5px;
+	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+	color: #B3B8CD;
+	padding-top: 1.6rem;
+	position: relative;
+	width: 350px;
+	max-width: 100%;
+	text-align: center;
+}
+
+
+
+.cardContainer .round {
+	border: 1px solid #03BFCB;
+	border-radius: 50%;
+	padding: .7rem;
+    max-width: 40%;
+    margin-inline: auto;
+}
+.cardContainer p{
+	font-size: 2.5rem;
+	text-transform: capitalize;
+	margin-top: 1rem;
+}
+button.danger{
+	background-color: #03BFCB;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	font-weight: 700;
+	padding: 1rem 2.5rem;
+	font-size: 1.6rem;
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+	display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-direction: row-reverse;
+	margin-inline: auto;
+}
+.danger:hover{
+	border-color: #2D2747;
+}
+.skills h6{
+	font-size: 1.6rem;
+	margin-bottom: 0.8rem;
+}
+.skills {
+	background-color: #1F1A36;
+	text-align: left;
+	padding: 15px;
+	margin-top: 30px;
+}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 1rem;
+}
+
+.skills ul li {
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 7px 7px 0;
+	padding: 7px;
+	font-weight: 500;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap:1rem;
+	font-size: 3rem;
+	background-color: inherit;
+	color: #03BFCB;
+}

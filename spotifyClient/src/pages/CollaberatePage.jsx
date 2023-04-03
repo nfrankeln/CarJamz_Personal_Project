@@ -1,17 +1,26 @@
 import axios from "axios";
-import qs from 'qs';
 import { useEffect, useState } from "react";
 import FoundGenresCard from "../components/FoundGenresCard";
 import FoundUsersBox from "../components/foundUsersBox";
 import SearchBox from "../components/SearchBox";
 import './CollaberatePage.css'
-export default function CollaberatePage({addedUsers,setAddedUsers}){
+export default function CollaberatePage({addedUsers,setAddedUsers,accountInfo}){
     const [foundUser,setFoundUser]=useState(false)
     const [commonGenres,setCommonGenres]=useState(null)
+    console.log("added users",addedUsers)
+    console.log("account info",accountInfo)
     useEffect(()=>{
-    if (addedUsers.length > 0){
+    if (addedUsers.length===0 && accountInfo!== null ){
+    setAddedUsers([...addedUsers,accountInfo])
+}},[accountInfo])
+
+    useEffect(()=>{
+        setCommonGenres(null)
+    if (addedUsers.length > 1){
         getCommonInterests(addedUsers)}
     },[addedUsers])
+
+    
     function getCommonInterests(){
      
         const ids = addedUsers.map(user => user['id'])
@@ -25,15 +34,7 @@ export default function CollaberatePage({addedUsers,setAddedUsers}){
         <div id="collab-container">
             <SearchBox foundUser={foundUser} setFoundUser={setFoundUser} />
             {foundUser  && <FoundUsersBox addedUsers={addedUsers} setAddedUsers={setAddedUsers} foundUser={foundUser} setFoundUser={setFoundUser}/>}
-            {commonGenres && <FoundGenresCard addedUsers={addedUsers} setFoundUser={setFoundUser} commonGenres={commonGenres}/> 
-
-                                // <div>
-                                //     <ul>
-                                // {commonGenres.map(genre => (
-                                // <li key={genre}>{genre}</li>))}
-                                //     </ul>
-                                // </div>
-            }
+            <FoundGenresCard addedUsers={addedUsers} setFoundUser={setFoundUser} commonGenres={commonGenres}/>
         </div>
 
 

@@ -6,9 +6,9 @@
 .header p{
   text-align: left;
   font-family: 'Lato';
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 400;
   color: azure;
-  font-size: 1.6rem;
   margin: 0;
 }
 #colored-word{

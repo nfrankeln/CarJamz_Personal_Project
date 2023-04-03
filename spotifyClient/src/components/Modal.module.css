@@ -1,0 +1,82 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s, visibility 0.5s,transform 0.5s;
+  }
+  
+.container.active{
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+.modal{
+    min-width: 300px;
+    min-height:50px;
+    background-color: white;
+    border-radius: 3px;
+    border: solid 1px #B3B8CD ;
+    position: relative;
+    padding: 1rem;
+}
+.prompt{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.prompt p:first-child{
+    font-family: 'Lato', sans-serif;
+    font-size: 3rem;
+    font-weight: 400;
+    text-align: center;
+}
+.prompt p:nth-child(2){
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+}
+.content{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2rem;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+button.primary {
+	background-color: deeppink;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	color: white;
+	font-family: Montserrat, sans-serif;
+	font-weight: 700;
+    font-size: 1.6rem;
+	padding: .8rem 1.6rem;
+    cursor: pointer;
+}
+button.primary:hover{
+    border: 1px solid white;
+}
+button.primary.ghost {
+	background-color: white;
+	color: deeppink;
+}
+button.primary.ghost:hover{
+    border-color:deeppink;
+}
+.promptIcon{
+    font-size: 5rem;
+    color: rgba(255, 0, 0, 0.738);
+}
