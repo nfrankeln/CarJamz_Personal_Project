@@ -29,3 +29,7 @@ The back end is made with django and postgres
 
 ## Postgres Diagram
 [Spotify song data diagram](https://drawsql.app/teams/codeplatoon/diagrams/spotify)
+
+##Encountered Problems
+1) spotify only has a small list of seed genres availible but can take in any artist id solution: get random artists assoicated with selected genres
+2) slow saving of user data due to multiple API requests solution: asycronous requests
