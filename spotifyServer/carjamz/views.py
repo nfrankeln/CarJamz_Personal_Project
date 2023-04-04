@@ -38,27 +38,18 @@ def common_intrests(request):
     # convert all strings to numbers
     ids = list(map(int,ids))
     # append the App user
-    print('my pk')
     ids.append(request.user.pk)
     # filter out duplicates
     ids=list(set(ids))
-    print("user_ids",ids)
     users = AppUser.objects.filter(id__in=ids)
     playlistCollections=UserPlaylistCollection.objects.filter(user__in=users)
     topSongsPlaylists=Playlist.objects.filter(name='top songs', user_playlist_collection_id__in=playlistCollections)
     counters=[]
     for playlist in topSongsPlaylists:
-        print(playlist)
+       
         usersCount=Genre.objects.filter(artist__song__playlist = playlist).values('name').annotate(Count('name')).order_by('-name__count')
         counters.append(list(usersCount))
-    print(len(counters))
 
-
-# get the genre counts for each user
-    # user_genres = [
-    # Genre.objects.filter(artist__song__playlist__user=user_id).values_list('name', 'name__count').annotate(total=Sum('name__count'))
-    # for user_id in ids]
-# print the genre counters for each user
   
 
 # create a list of all genres
@@ -77,7 +68,6 @@ def common_intrests(request):
                 nonzeros+=1
         row = (index,sum(row)/len(row)*(10**nonzeros))
         results.append(row)
-    print(results)
     sorted_list = sorted(results, key=lambda x: x[1], reverse=True )
 
 # return first 10 items or whole list
@@ -85,7 +75,6 @@ def common_intrests(request):
     first_ten=get_n_items(sorted_list,10)
     for item in first_ten:
         top_ten_genres.append(all_genres[item[0]])
-    print(top_ten_genres)
     return JsonResponse({'topGenres':top_ten_genres})
 @api_view(['POST'])
 def reccomendation(request):
@@ -104,8 +93,6 @@ def reccomendation(request):
     quotient = dividend // divisor
     remainder = dividend % divisor
 
-    print("Quotient:", quotient)
-    print("Remainder:", remainder)
     amount_from_each=[]
     for item in range(0,divisor):
         # first genre gets priority and gets remainder if 5 seed spots cant be equally divided
@@ -137,5 +124,5 @@ def reccomendation(request):
     url='https://api.spotify.com/v1/recommendations'
     headers1 = {"Authorization": "Bearer " + get_token(request.user)}
     response = requests.get(url,params=spotify_params, headers=headers1).json()
-   
-    return JsonResponse(response)
+
+    return JsonResponse(response['tracks'],safe=False)
