@@ -1,5 +1,4 @@
 import crowd from '../assets/crowd.png'
-import number4 from'../assets/number4.svg'
 import './HomePage.css'
 import { FaSpotify,FaPeopleArrows,FaGreaterThan } from 'react-icons/fa';
 import {MdOutlinePlaylistAddCheckCircle} from 'react-icons/md'

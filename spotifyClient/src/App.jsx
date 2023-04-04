@@ -14,6 +14,7 @@ import NavBar from "./components/NavBar";
 //CSS IMPORTS
 import './index.css'
 import { authorizeSpotify } from "./utils/authorizeSpotify";
+import PlaylistPage from "./pages/PlaylistPage";
 
 
 
@@ -68,9 +69,13 @@ useEffect(() => {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<NavBar authenticated={authenticated}/>}>
-        <Route path="" element={<HomePage addedUsers={addedUsers} setAddedUsers={setAddedUsers} authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
+        <Route index element={<HomePage addedUsers={addedUsers} setAddedUsers={setAddedUsers} authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
         <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
-        <Route path="collaberate"element={<CollaberatePage accountInfo={accountInfo} addedUsers={addedUsers} setAddedUsers={setAddedUsers}/>}></Route>
+        <Route path="collaberate">
+          <Route index element={<CollaberatePage accountInfo={accountInfo} addedUsers={addedUsers} setAddedUsers={setAddedUsers}/>}></Route>
+          <Route path="playlist" element={<PlaylistPage/>}></Route>
+        </Route>
+        
         <Route path="account" element={<AccountPage accountInfo={accountInfo}/>}></Route>
         <Route path="faq" element={<FaqPage/>}></Route>
       </Route>
