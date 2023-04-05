@@ -1,85 +1,43 @@
-.mediaPlayer{
-    margin-inline: auto;
-    display: flex;
-    flex-direction: column;
-    gap:4.8rem;
-}
-.nowPlaying{
-    display: flex;
-    justify-content: space-between;
-}
-.audioWrap{
-    display: flex;
-    flex-direction: column;
-    gap:3rem;
-}
-.controls{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap:.7rem;
-}
-.volume-controls{
-    display: flex;
-    gap:.7rem
-}
-.slider{
-    display: flex;
-    flex:1;
-}
-.slider input{
-    flex: 1;
-}
-.volumeSlider{
-    flex-shrink: 2;
-}
-.iconWrapper{
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    flex-grow: 0;
-    font-size: 3rem;
-}
-.iconWrapperFA{
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    flex-grow: 0;
-    font-size: 2rem;
-}
-.navigate-tracks{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .playlist{
     padding: 1rem;
-    width: 100%;
+    max-width: 800px;
     display: flex;
     font-size: 1.6rem;
     font-family: 'Lato';
     color: white;
+    gap: 3rem;
     justify-content: center;
     flex-direction: column;
+    margin-inline: auto;
 }
 .playlist ol{
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    padding-left: 2rem;
-    max-width: min(100%,800px);
-    margin-inline: auto;
+    padding-left: 0rem;
 }
-
+.playButton{
+    outline: none;
+    background: transparent;
+    border: 1px solid transparent;
+}
+.playButton:active{
+    outline: none;
+    background: transparent;
+    border: 1px solid grey;
+  }
 .track {
     display:flex;
     gap:1.6rem;
     padding: 2rem 1rem;
 }
 .track:hover{
-    background-color: aqua;
-    color: black;
+    background-color: #231e39;
+    color: aquamarine;
+    cursor: pointer;
 }
+
 .playlist li .track-details{
     display: flex;
     align-items: center;
@@ -104,3 +62,53 @@
   .time{
     padding-left: 3rem;
   }
+  .savePlaylist{
+    display: flex;
+    justify-content: space-between;
+  }
+  .savePlaylist input[type="text"]
+{
+    font-size:2.4rem;
+    border: transparent;
+    border-bottom: solid white 1px;
+    outline: none;
+    background: none;
+    color:white
+    
+}
+.savePlaylist input:focus{
+    border-bottom: solid aquamarine 1px;
+}
+.savePlaylist input:hover{
+    border-bottom: solid aquamarine 1px;
+}
+.savePlaylist input::placeholder {
+    color: white; /* Change the color to any desired value */
+    font-family: 'Lato',sans-serif;
+  }
+.savePlaylist button{
+    border: transparent;
+    outline: none;
+    border-radius: 2rem;
+    background: aquamarine;
+    color:#28223f;
+    font-weight: 700;
+    padding: 1rem 1.8rem;
+    cursor: pointer;
+}
+@media screen and (max-width: 400px) {
+    /* Styles to apply when screen width is less than 400px */
+    .savePlaylist{
+        flex-wrap: wrap;
+        gap: 2rem;
+        
+    }
+    .savePlaylist input[type="text"]{
+        width: 100%;
+    }
+    .savePlaylist button{
+        width: 100%;
+        padding: 1rem;
+    }
+  }
+  

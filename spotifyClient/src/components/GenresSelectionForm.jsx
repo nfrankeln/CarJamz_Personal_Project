@@ -15,7 +15,7 @@ export default function GenresSelectionForm({commonGenres,addedUsers}) {
     useEffect(() => {
       if (loading && data) {
         console.log(data)
-        navigate('playlist', { state: {tracks:data} });
+        navigate('playlist', { state: {tracks:data['tracks'],token:data['token']} });
       }
     }, [loading, data]);
 //reset checkboxes when a user is added or removed

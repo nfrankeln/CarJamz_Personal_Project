@@ -2,46 +2,44 @@ import { useLocation } from "react-router-dom";
 import styles from './PlaylistPage.module.css'
 import {millisToMinutesAndSeconds} from '../utils/timeConversion.js'
 import {FaVolumeMute,FaVolumeUp} from 'react-icons/fa'
-import {GrPowerReset} from 'react-icons/gr'
 import {CgPlayTrackPrev,CgPlayTrackNext,CgPlayPause,CgPlayButton} from 'react-icons/cg'
+import { useEffect,useState,useRef } from "react";
+import SpotifyPlayer from 'react-spotify-web-playback';
+import axios from "axios";
 export default function PlaylistPage(){
     const location = useLocation();
     const tracks = location.state && location.state.tracks ? location.state.tracks : [];
-    console.log(location.state.tracks);
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    
+    
+
+    const uris = [];
+
+    tracks.forEach((myObj) => 
+    {Object.entries(myObj).forEach(([key, value]) => 
+        {if (key === 'uri') {uris.push(value);}});});
+
     return(<>
             <div className={styles.playlist}>
-         <div className={styles.mediaPlayer}>
-            <div className={styles.nowPlaying}>
-                <div className={styles.action}>Now Playing...</div>
-                <div className={styles.title}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, necessitatibus?</div>
-            </div>
-            <div className={styles.audioWrap}>
-            <div className={styles.controls}>
-                <div className={styles.iconWrapper}><CgPlayButton/></div>
-                <div className={styles.slider}><input type="range"/></div><div>00:05/3:28</div> 
-                <div className={styles['volume-controls']}>
-                    <div className={styles.iconWrapperFA}><FaVolumeUp/></div>
-                    <div className={styles.slider}><input className={styles.volumeSlider} type="range"/></div>
-                 </div>
-            </div>
-            <div className={styles['navigate-tracks']}>
-                <div className={styles.iconWrapper}><CgPlayTrackPrev/></div>
-                <div className={styles.iconWrapper}><CgPlayTrackNext/></div>
-                <div>save playlist</div>
-            </div>
-            </div>
-            
-         </div>
-
-
-
-
-
-
-        
+              <form className={styles.savePlaylist}><input type="text" placeholder="Name Your Playlist"/><button>SAVE PLAYLIST</button></form>
+               <SpotifyPlayer 
+                token={location.state.token}
+                uris={uris}
+                offset={currentSongIndex}
+                styles={{
+                    activeColor: '#fff',
+                    bgColor: '#28223f',
+                    color: '#FFFFFF',
+                    loaderColor: '#FFFFFF',
+                    sliderColor: '#7fffd4',
+                    sliderHandleColor:'#fff',
+                    trackArtistColor: '#ccc',
+                    trackNameColor: '#fff',
+                  }}
+                />   
             <ol>
             {tracks.map((track,index) => (
-                <li className={styles.track} key={track.id}>
+                <li onClick={()=>setCurrentSongIndex(index)}  className={styles.track} key={track.id}>
                     <div>{index + 1}</div>
                     <div className={styles['track-details']}>
                     <div className={styles['name-container']}>
@@ -56,4 +54,3 @@ export default function PlaylistPage(){
         </>
     )
 }
-
