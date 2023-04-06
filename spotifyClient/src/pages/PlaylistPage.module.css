@@ -96,6 +96,16 @@
     padding: 1rem 1.8rem;
     cursor: pointer;
 }
+.savePlaylist a{
+    border: transparent;
+    outline: none;
+    border-radius: 2rem;
+    background: aquamarine;
+    color:#28223f;
+    font-weight: 700;
+    padding: 1rem 1.8rem;
+    cursor: pointer;
+}
 @media screen and (max-width: 400px) {
     /* Styles to apply when screen width is less than 400px */
     .savePlaylist{

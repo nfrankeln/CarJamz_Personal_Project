@@ -2,9 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     margin-bottom: 2rem;
+    margin-top:2rem;
 }
 .brandTitle{
     font-size: 3rem;
@@ -16,7 +17,9 @@
 .navbarLinks ul{
     margin: 0;
     padding: 0;
-    display: flex;  
+    display: flex;
+    gap: 2rem;
+
 }
 .navbarLinks li{
     list-style-type: none;
@@ -33,18 +36,19 @@
     font-weight: 700;
 }
 .navbarLinks li a:hover{
-    color: #20bead;
+    color: aquamarine;
 }
 .navbarLinks li button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5%;
-    background: #20bead;
-    padding: 1rem;
-    font-size: 1.5rem;
-    height: 50%;
-    color: white;
+    border: transparent;
+    outline: none;
+    border-radius: 2rem;
+    font-size: 2rem;
+    background: aquamarine;
+    color:#28223f;
+    font-weight: 700;
+    padding: .5rem .9rem;
+    cursor: pointer;
+    width:10rem;
 }
 
 input[type="checkbox"]:checked ~ #sidebarMenu {
@@ -61,7 +65,7 @@ input[type="checkbox"]:checked ~ #sidebarMenu {
     box-sizing: border-box;
     cursor: pointer;
     position: absolute;
-    z-index: 99;
+    z-index: 999;
     height: 100%;
     width: 100%;
     top:2.5rem;
@@ -70,13 +74,14 @@ input[type="checkbox"]:checked ~ #sidebarMenu {
     width: 22px;
     display: none;
 }
+
 @media (max-width:600px){
     .sidebarIconToggle{
         display: block;
     }
     .navbarLinks{
         position: absolute;
-        top:4rem;
+        /* top:4rem; */
         z-index: 1;
         text-align: center;
         right:-250px;
@@ -141,10 +146,10 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part2 {
     margin-top: -9px;
 }
 input[type="checkbox"]:checked ~ .navbarLinks {
-    background: linear-gradient(270deg, hsla(207, 44%, 49%, 1) 0%, hsla(216, 44%, 45%, 1) 39%, hsla(238, 44%, 44%, 1) 100%);
+    background-color: #28223f;
+    color: aquamarine;
     position: absolute;
-    top:4rem;
-    z-index: 1000;
+    z-index: 100;
     width:101%;
     text-align: center;
     transform: translateX(-250px);

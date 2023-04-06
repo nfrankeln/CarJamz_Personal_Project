@@ -17,7 +17,7 @@ export default function AccountCard({foundUser}){
             {foundUser.top_five_genres.map((genre)=><li>{genre}</li>)}
           </ul>
           <div>
-          <button className={styles.danger} onClick={toggleModal}>Delete <div><FaRegTrashAlt/></div>
+          <button className={styles.danger} onClick={toggleModal}>Delete Account <div><FaRegTrashAlt/></div>
           </button></div>
         </div>
         

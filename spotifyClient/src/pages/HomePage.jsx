@@ -1,6 +1,6 @@
-import crowd from '../assets/crowd.png'
+import footerImage from '../assets/music_crowd.png'
 import './HomePage.css'
-import { FaSpotify,FaPeopleArrows,FaGreaterThan } from 'react-icons/fa';
+import { FaSpotify,FaPeopleArrows,FaGreaterThan,FaGithub,FaLinkedin } from 'react-icons/fa';
 import {MdOutlinePlaylistAddCheckCircle} from 'react-icons/md'
 import {RiAccountBoxLine} from 'react-icons/ri'
 import {GiCheckMark} from 'react-icons/gi'
@@ -8,22 +8,13 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import {authorizeSpotify} from '../utils/authorizeSpotify'
-export default function HomePage({users,setUsers,authenticated,spotifyAuthorized}){
+export default function HomePage({step}){
 
-    const [step,setStep] = useState(1)
-    useEffect(()=>{
-        if(authenticated){
-            setStep(prevstep => prevstep+ 1)}
-        if(spotifyAuthorized){
-            setStep(prevstep => prevstep + 1)
-        if(users){
-            setStep(prevstep => prevstep +1)
-        }
-        }
-    }
-        ,[authenticated,spotifyAuthorized])
+    
+      
     
     return (
+        <>
     <div className='container'>
         <div className="header">
             <p>Mix the perfect playlist for your next road trip</p>
@@ -32,7 +23,7 @@ export default function HomePage({users,setUsers,authenticated,spotifyAuthorized
 
         
         <div className='main'>
-        <ol className='icons'>
+        <ol className='app-instructions'>
             <div className='listwrap'>
                 {(step === 1 ? <div className='step'><FaGreaterThan/></div>: <div className='step'></div>) }  
                 <li>
@@ -69,7 +60,8 @@ export default function HomePage({users,setUsers,authenticated,spotifyAuthorized
                 <li>
                     <div className='icon'>
                     <div><FaPeopleArrows/></div>
-                    <div><Link to="collaberate">Compare Intrests</Link></div>
+                    <div>{step < 3 ?  <p>Compare Intrests</p>: <Link to="collaberate">Compare Intrests</Link> }</div>
+               
                     </div>
                     {step > 3? <div className='checkmark'><GiCheckMark/></div>:<div className='checkmark'></div> }
                 </li>
@@ -91,11 +83,15 @@ export default function HomePage({users,setUsers,authenticated,spotifyAuthorized
         </ol>
         
         </div> 
-        <div id='footer'>
-        <img src={crowd} alt="" />
+       
         
         </div>
-        
+        <div className='footer'>
+            <div className='social-wrapper'>
+                <a href='https://github.com/nfrankeln' target='_blank'><FaGithub/></a>
+                <a href="https://www.linkedin.com/in/netanel-frankel/" target='_blank'><FaLinkedin/></a>
+            </div>
         </div>
+        </>
         )
 }

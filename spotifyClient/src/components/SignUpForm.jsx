@@ -16,35 +16,54 @@ export default function SignUpForm(props){
     return(
         <div id="sign-up-form-body" >
             <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
-                
+            
+
                 <div id='name-wrapper'>
-                
+              
                 <div className='input-wrapper'>
-                <label htmlFor='first-name'>First Name</label>
-                <input {...register("first_name" , {pattern: /^[A-Za-z]+$/i } )} id='first-name' type="text"/>
+                    
+                <label htmlFor='first-name'>First Name 
+                <span style={{ verticalAlign: 'super' }}>&lowast;</span>
+                {errors.first_name?.type === 'pattern' && <span className='danger' style={{ marginLeft: '1rem' }}>  Letters only</span>}
+                </label>
+                
+       
+                
+                <input {...register("first_name" ,
+                 {  required: true,
+                    pattern: /^[A-Za-z]+$/i } )} id='first-name' type="text"/>
                 </div>
                 
                 <div className='input-wrapper'>
-                <label htmlFor='last-name'>Last Name</label>
-                <input {...register("last_name" , { pattern: /^[A-Za-z]+$/i } )} id='last-name' type="text"/>
+                <span className='label-wrapper'>
+                <label htmlFor='last-name'>Last Name 
+                <span style={{ verticalAlign: 'super' }}>&lowast;</span>
+                {errors.last_name?.type === 'pattern' && <span className='danger' style={{ marginLeft: '1rem' }}>Letters only</span>}
+                </label>
+                
+                </span>
+                <input {...register("last_name" , 
+                { pattern: /^[A-Za-z]+$/i ,
+                  required:true
+                } )} id='last-name' type="text"/>
+                </div>
+             
                 </div>
 
-                </div>
-                {(errors.firstName?.type === 'pattern' || errors.lastName?.type === 'pattern') && <span>Your name may only contain letters</span>}
             
                 <div className='input-wrapper'>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email <span style={{ verticalAlign: 'super' }}>&lowast;</span></label> {errors.email?.type === 'required' && <p className='danger'>an email is required</p>}
                 <input {...register("email",{ required: true})} id='email' type="email"/>
                 </div>
 
-                {errors.email?.type === 'required' && <span>an email is required</span>}
+               
 
                 <div className='input-wrapper'>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password <span style={{ verticalAlign: 'super' }}>&lowast;</span></label> 
+                <p className={errors.password?.type === 'required' || errors.password?.type === 'minLength' ? 'danger' : 'default'}>Must be at least 4 characters</p>
+
                 <input {...register("password",{required: true, minLength: 4})} id='password' type="text"/>
                 </div>
-                {errors.password?.type === 'required' && <span>a password is required </span>}
-                {errors.password?.type === 'minLength' && <span>password must be at least 4 charachters</span>}
 
                 <div id='sign-up-button-wrapper'>
                 <button className='sign-up-in-button'>Create Account</button>

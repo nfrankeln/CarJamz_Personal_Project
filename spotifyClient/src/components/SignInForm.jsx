@@ -30,7 +30,7 @@ export default function SignInForm(){
                 {errors.email?.type === 'required' && <span>an email is required</span>}
 
                 <div className='input-wrapper'>
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Password</label> 
                 <input {...register("password",{required: true})} id='password' type="text"/>
                 </div>
                 {errors.password?.type === 'required' && <span>a password is required </span>}

@@ -2,15 +2,15 @@ import { Outlet,Link,redirect, useNavigate } from "react-router-dom";
 import styles from './NavBar.module.css'
 import axios from "axios";
 import {GiHamburgerMenu} from 'react-icons/gi'
-export default function NavBar(props)
+export default function NavBar({authenticated, resetState})
 {
     const navigate = useNavigate()
     //FUNCTIONS
-    function logout(){
-        axios.post('api/logout/')
-        .then(response =>  navigate(0) )
-        .then(()=> navigate(0))
-        .catch(error => {console.log(error);});
+    async function logout(){
+        await axios.post('api/logout/')
+        .catch(error => {console.log(error);})
+        resetState()
+        navigate('');
     }
 
     return(
@@ -29,8 +29,8 @@ export default function NavBar(props)
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/faq">Faq</Link></li>
-                    {props.authenticated?<li><Link to="/account">Account</Link></li>:null}
-                    {props.authenticated?<li id='logout'><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
+                    {authenticated?<li><Link to="/account">Account</Link></li>:null}
+                    {authenticated?<li id='logout'><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
                 </ul>
             </div>
         </div>

@@ -2,7 +2,7 @@
     display: none;
 }
 .selected-genres-form input[type=checkbox]:checked + .genre{
-    background-color: rgb(3, 191, 203);
+    background-color: aquamarine;
     color: black;
 }
 .selected-genres-form{
@@ -21,6 +21,7 @@
 	color: #b3b8cd;
 	text-transform: capitalize;
     cursor: pointer;
+    font-family: 'Lato',sans-serif;
 }
 .selected-genres-form label:hover{
     border: 1px solid #353536;
@@ -32,7 +33,7 @@
     row-gap: .4rem;
 }
 button.primary {
-	background-color: #03BFCB;
+	background-color: aquamarine;
 	border: 1px solid #03BFCB;
 	border-radius: 3px;
 	color: #231E39;

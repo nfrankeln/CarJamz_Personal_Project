@@ -1,7 +1,6 @@
 .header{
-    top: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-top: 1rem;
+    
 }
 .header p{
   text-align: left;
@@ -25,12 +24,11 @@
   flex:1 0 auto;
 }
 .container {
-  height:100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 2rem;
-  gap: 2rem;
+  gap: 10vh;
   }
  
   .homebutton{
@@ -48,53 +46,67 @@
     font-family: "Lato";
   }
   .step{
-    font-size: 1rem;
+    font-size: 2rem;
     min-width: 2rem;
     color: aquamarine;
   }
   .strikethrough{
     text-decoration: line-through;
   }
-  #footer{
-    display: contents;
-    min-height: 50px;
-    flex-shrink: 0;
+  .footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;  
   }
-  #footer img{
-    max-width: 100%;
-    height: auto;
+  .social-wrapper{
+    color: #7fffd4;
+    font-size: 4rem;
+    padding-right: 2rem;
+    gap: 3rem;
+    display: flex;
+    justify-content: flex-end;
+    
+  }
+  .social-wrapper a{
+    cursor: pointer;
+    z-index: 100;
+    text-decoration: none;
+    color: inherit;
   }
 .listwrap{
   display: flex;
   align-items: center;
+  gap: 2rem;
 }
-  .icons{
+  .app-instructions{
 display: flex;
 align-items: flex-start;
 flex-direction: column;
 padding: 0;
 counter-reset: steps;
+gap: 1rem;
 
 
   }
-  .icons li::before{
+  .app-instructions li::before{
     content: counter(steps);
   counter-increment: steps;
   }
-  .icons li{
+  .app-instructions li{
   
   display: flex;
-  font-size: 2rem;
+  font-size: 2.4rem;
   color: white;
-  gap:1rem;
+  gap:2rem;
   flex:1;
   align-items: center;
   }
 .icon{
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.4rem;
   color: white;
   min-width: 270px;
   
@@ -102,16 +114,18 @@ counter-reset: steps;
 }
 .checkmark{
 color: aquamarine ;
+width: 2rem;
 }
-.icons li p {
-  font-size: 2rem;
+.app-instructions li p {
+  font-size: 2.5rem;
   
 }
-.icons li a{
+.app-instructions li a{
   color: white;
   text-decoration: none;
+  font-size: 2.5rem;
 }
-.icons li button {
+.app-instructions li button {
   background: transparent;
   border: none;
   color: inherit;

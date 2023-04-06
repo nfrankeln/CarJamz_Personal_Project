@@ -4,6 +4,7 @@ import {createBrowserRouter,Route, createRoutesFromElements, RouterProvider, use
 import { useState,useEffect } from "react";
 // UTIL IMPORTS
 import { getCookie } from "./utils/cookie";
+
 //PAGE COMPONENT IMPORT
 import HomePage from "./pages/HomePage";
 import FaqPage from "./pages/FaqPage";
@@ -13,7 +14,6 @@ import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar";
 //CSS IMPORTS
 import './index.css'
-import { authorizeSpotify } from "./utils/authorizeSpotify";
 import PlaylistPage from "./pages/PlaylistPage";
 
 
@@ -32,6 +32,8 @@ function App() {
   const [addedUsers,setAddedUsers]=useState([])
   //get current users info
   const [accountInfo, setAccountInfo] = useState(null);
+  //what part of the application flow the user is at
+  const [step,setStep] = useState(1)
   //EFFECT
 
 //check if user is logged into app and autherized spotify
@@ -52,7 +54,6 @@ useEffect(() => {
     axios.get('api/account/information/')
       .then(response => {
         setAccountInfo({...response.data});
-        // window.localStorage.setItem('AccountInfo',accountInfo)
       })
       .catch(error => {
         console.error('Error fetching account information:', error);
@@ -60,21 +61,38 @@ useEffect(() => {
   }
 }, [authenticated, spotifyAuthorized, setAccountInfo]);
 // authenticated, spotifyAuthorized, setAccountInfo
-
+const resetState = () => {
+  setAuthenticated(false);
+  setSpotifyAuthorized(false);
+  setStep(1);
+  // Reset any other state variables here
+};
+useEffect(() => {
+        if (authenticated && spotifyAuthorized) {
+          setStep(3);
+        }
+        else if (authenticated){
+            setStep(2)
+        }
+      }, [authenticated, spotifyAuthorized]);
 
 
   const csrfToken = getCookie('csrftoken');
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
+
+
   
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<NavBar authenticated={authenticated}/>}>
-        <Route index element={<HomePage addedUsers={addedUsers} setAddedUsers={setAddedUsers} authenticated={authenticated} spotifyAuthorized={spotifyAuthorized}/>}></Route>
+    <Route path="/" element={<NavBar authenticated={authenticated} resetState={resetState}/>}>
+        <Route index element={<HomePage step={step}/>}></Route>
         <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
-        <Route path="collaberate">
+        
+        <Route path="collaberate" >
           <Route index element={<CollaberatePage accountInfo={accountInfo} addedUsers={addedUsers} setAddedUsers={setAddedUsers}/>}></Route>
           <Route path="playlist" element={<PlaylistPage/>}></Route>
         </Route>
+       
         
         <Route path="account" element={<AccountPage accountInfo={accountInfo}/>}></Route>
         <Route path="faq" element={<FaqPage/>}></Route>

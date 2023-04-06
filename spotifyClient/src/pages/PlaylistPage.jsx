@@ -5,12 +5,25 @@ import {FaVolumeMute,FaVolumeUp} from 'react-icons/fa'
 import {CgPlayTrackPrev,CgPlayTrackNext,CgPlayPause,CgPlayButton} from 'react-icons/cg'
 import { useEffect,useState,useRef } from "react";
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { useForm } from "react-hook-form";
 import axios from "axios";
 export default function PlaylistPage(){
     const location = useLocation();
     const tracks = location.state && location.state.tracks ? location.state.tracks : [];
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [externalLink,setExternalLink]=useState(false)
+    const onSubmit = (data) => {
+        data['uris']=uris
+        console.log(data['uris'])
+        axios.post("/api/spotify/playlists/create/", data)
+          .then(response => setExternalLink(response.data['url']))
+          .catch(error => console.error(error))
+      }
     
+
+      
+
     
 
     const uris = [];
@@ -21,7 +34,11 @@ export default function PlaylistPage(){
 
     return(<>
             <div className={styles.playlist}>
-              <form className={styles.savePlaylist}><input type="text" placeholder="Name Your Playlist"/><button>SAVE PLAYLIST</button></form>
+              <form className={styles.savePlaylist} onSubmit={handleSubmit(onSubmit)}>
+                <input type="text" {...register("playlistName",{ required: true})} placeholder="Name Your Playlist"/>
+                {externalLink?<a href={externalLink} target="_blank">SEE IT ON SPOTIFY</a>:<button type="submit">SAVE PLAYLIST</button>}
+                
+                </form>
                <SpotifyPlayer 
                 token={location.state.token}
                 uris={uris}

@@ -8,6 +8,7 @@
 	color: #b3b8cd;
 	text-transform: capitalize;
 	cursor: pointer;
+	font-family: 'Lato', sans-serif;
 }
 .groupMember:hover{
 		border: 1px solid #353536;
