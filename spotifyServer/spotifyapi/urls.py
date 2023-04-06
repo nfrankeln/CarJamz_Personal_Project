@@ -6,4 +6,5 @@ urlpatterns = [
     path('api/spotify/callback/', views.spotfiy_callback),
     path('api/spotify/top-songs/',views.topSongs),
     path('api/profileData/', views.profileData),
+    path('api/spotify/playlists/create/',views.create_spotify_playlist),
 ]

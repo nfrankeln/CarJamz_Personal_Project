@@ -124,5 +124,9 @@ def reccomendation(request):
     url='https://api.spotify.com/v1/recommendations'
     headers1 = {"Authorization": "Bearer " + get_token(request.user)}
     response = requests.get(url,params=spotify_params, headers=headers1).json()
-
-    return JsonResponse(response['tracks'],safe=False)
+    token=get_token(request.user)
+    response={
+        'tracks':response['tracks'],
+        'token':token
+    }
+    return JsonResponse(response,safe=False)

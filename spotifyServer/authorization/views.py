@@ -17,7 +17,7 @@ def index(request):
 @api_view(['POST'])
 def register(request):
     try:
-        User.objects.create_user(**request.data['signUpData'])
+        AppUser.objects.create_user(**request.data['signUpData'])
         http_request = request._request
         email = request.data['signUpData']['email']
         password = request.data['signUpData']['password']

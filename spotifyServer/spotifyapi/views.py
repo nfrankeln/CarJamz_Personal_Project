@@ -13,7 +13,7 @@ from spotifyapi.utils import get_token
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
 # Import Models
 from spotifyapi.models import SpotifyToken,Song,Playlist,UserPlaylistCollection,Artist,Genre
-
+from authorization.models import AppUser
 from django.db.models import Count
 
 @api_view(['GET'])
@@ -36,7 +36,9 @@ def spotify_url(request):
         user-library-modify
         user-library-read
         user-read-email
-        user-read-private"""
+        user-read-private
+        streaming
+        """
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
             'response_type': 'code',
@@ -89,11 +91,19 @@ def topSongs(request):
                 print(e)
                 return HttpResponse("error")
        
-def save_User_Spotify_Data(request):
+def save_User_Spotify_Data(request): 
 # STEP 1 GET USER'S TOP SONGS 
-        access_token = get_token(user=request.user)
+
+        user = AppUser.objects.get(email=request.user)
+        access_token = get_token(user)
         params={"limit":50}
         headers = {"Authorization": "Bearer "+ access_token}
+        response=requests.get('https://api.spotify.com/v1/me', headers = headers).json()
+        if 'images' in response:
+                user.profileImageUrl = response['images'][0]['url'] 
+        else:
+                user.profileImageUrl='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png'
+        user.save()
         response = requests.get("https://api.spotify.com/v1/me/top/tracks",params=params, headers=headers)
         response=response.json()
         response=response['items']
@@ -147,6 +157,7 @@ def save_User_Spotify_Data(request):
         
         return HttpResponse("test")
         pass
+        pass
 @api_view(['GET'])
 def profileData(request):
         
@@ -159,6 +170,34 @@ def profileData(request):
         return JsonResponse({'top genres': top_five_genre})
         pass
 
+@api_view(['POST'])
+def create_spotify_playlist(request):
+        data=request.data
+        playlist_name=data['playlistName']
+        uris = data['uris']
+        # print(uris,playlist_name)
+        user = AppUser.objects.get(email=request.user)
+        token = get_token(user=request.user)
+        user.spotifyID
+        # GET USER SPOTIFY ID from DB or API
+        headers = {"Authorization": "Bearer "+ token}
+        response=requests.get('https://api.spotify.com/v1/me', headers = headers).json()
+        user.spotifyID = response['id']
+        user.save()
+        # Create a playlist for that user
+        response=requests.post(f'https://api.spotify.com/v1/users/{user.spotifyID}/playlists', json={"name":playlist_name}, headers=headers).json()
+        playlist_id = response['id']
+        # 
+        response=requests.post(f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', json={'uris':uris}, headers=headers)
+        
+        playlist_url=f'https://open.spotify.com/playlist/{playlist_id}'
+        
+        return JsonResponse({'url':playlist_url})
+        
+
+       
+     
+             
 
 
 
