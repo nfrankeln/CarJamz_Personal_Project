@@ -73,7 +73,6 @@ def account_information(request):
             top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
             top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
             top_five_genre=list(top_five_genre)
-            
     except Exception as e:
         print(e)
     return JsonResponse({

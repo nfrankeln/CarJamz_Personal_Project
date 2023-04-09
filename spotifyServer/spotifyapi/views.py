@@ -141,9 +141,9 @@ def save_User_Spotify_Data(request):
                                 artist_instance , created = Artist.objects.get_or_create(
                                 name = artist['name'],
                                 spotify_id = artist['id'])
-                                              
+                                artists_instances.append(artist_instance)         
                                 if created:
-                                       artists_instances.append(artist_instance) 
+                                       
                                        artist_tuples.append((artist_instance,f'https://api.spotify.com/v1/artists/{id}')) 
                         song_instance.artist.set(artists_instances)
 
@@ -155,7 +155,7 @@ def save_User_Spotify_Data(request):
                 for genre in artist['genres']:
                         new_genre,created=Genre.objects.get_or_create(name=genre)
                         artistInstance.genre.add(new_genre)
-        
+        playlist.songs.set(songs)
 
         return HttpResponse("test")
         pass
