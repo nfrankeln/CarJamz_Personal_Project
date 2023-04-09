@@ -92,12 +92,9 @@ const router = createBrowserRouter(
         <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
         
         <Route path="collaberate" >
-          <Route index element={
-            <Protected isLoggedIn={authenticated}>
-          <CollaberatePage accountInfo={accountInfo}/>
-          </Protected>
-          }></Route>
-          <Route path="playlist" element={<PlaylistPage/>}></Route>
+          <Route index element={<Protected isLoggedIn={authenticated}><CollaberatePage accountInfo={accountInfo}/></Protected>}></Route>
+          <Route path="playlist" element={ 
+            <Protected isLoggedIn={authenticated}><PlaylistPage/></Protected>}></Route>
         </Route>
        
         
