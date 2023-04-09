@@ -2,8 +2,8 @@ import styles from './SearchResults.module.css'
 import { useNavigate} from 'react-router-dom';
 import {FaPlus,FaMinus} from 'react-icons/fa'
 
-export default function SearchResults({ addedUsers, setAddedUsers, foundUser,setFoundUser}){
-    const navigate= useNavigate()
+export default function FoundUsersBox({ addedUsers, setAddedUsers, foundUser,setFoundUser}){
+
     function checkForID(addedUsers,foundUser){
     for(const item of addedUsers){
       if(item['id']===foundUser['id']){
@@ -14,7 +14,7 @@ export default function SearchResults({ addedUsers, setAddedUsers, foundUser,set
     return(
       <div className={styles.searchResult}>
         <div className={styles.profileImage}> 
-      <img src="https://randomuser.me/api/portraits/women/79.jpg" alt="" />
+      <img src={foundUser.profileImageUrl} alt="" />
         </div>
         <div className={styles.profileInformationContainer}>
         <div className={styles.profileInformation}>

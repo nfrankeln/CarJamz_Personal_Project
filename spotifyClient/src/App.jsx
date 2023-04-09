@@ -1,7 +1,7 @@
 // DEPENDANCY IMPORTS
 import axios from "axios";
 import {createBrowserRouter,Route, createRoutesFromElements, RouterProvider, useLocation} from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState,useEffect,createContext } from "react";
 // UTIL IMPORTS
 import { getCookie } from "./utils/cookie";
 
@@ -15,9 +15,10 @@ import NavBar from "./components/NavBar";
 //CSS IMPORTS
 import './index.css'
 import PlaylistPage from "./pages/PlaylistPage";
+import Protected from "./components/Protected";
 
 
-
+export const accountInfoContext = createContext(null);
 
  
 
@@ -29,9 +30,10 @@ function App() {
   // check user had authorized spotify
   const [spotifyAuthorized,setSpotifyAuthorized] = useState(false)
   //check if user has added other appusers for playlist generation
-  const [addedUsers,setAddedUsers]=useState([])
+  
   //get current users info
   const [accountInfo, setAccountInfo] = useState(null);
+   
   //what part of the application flow the user is at
   const [step,setStep] = useState(1)
   //EFFECT
@@ -81,26 +83,38 @@ useEffect(() => {
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
 
 
-  
+
 const router = createBrowserRouter(
   createRoutesFromElements(
+    
     <Route path="/" element={<NavBar authenticated={authenticated} resetState={resetState}/>}>
         <Route index element={<HomePage step={step}/>}></Route>
         <Route path="login" element={<LoginPage setAuthenticated={setAuthenticated}/>}></Route>
         
         <Route path="collaberate" >
-          <Route index element={<CollaberatePage accountInfo={accountInfo} addedUsers={addedUsers} setAddedUsers={setAddedUsers}/>}></Route>
+          <Route index element={
+            <Protected isLoggedIn={authenticated}>
+          <CollaberatePage accountInfo={accountInfo}/>
+          </Protected>
+          }></Route>
           <Route path="playlist" element={<PlaylistPage/>}></Route>
         </Route>
        
         
-        <Route path="account" element={<AccountPage accountInfo={accountInfo}/>}></Route>
-        <Route path="faq" element={<FaqPage/>}></Route>
+        <Route path="account" element={
+          <Protected isLoggedIn={authenticated}>
+        <AccountPage/>
+        </Protected>
+        }></Route>
+  
       </Route>
+      
       )
 )
   return (
+    <accountInfoContext.Provider value={accountInfo}>
       <RouterProvider router={router}/>
+      </accountInfoContext.Provider>
   )
 }
 

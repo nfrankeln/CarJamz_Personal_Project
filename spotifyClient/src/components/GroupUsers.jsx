@@ -19,7 +19,7 @@ export default function({addedUsers,setFoundUser}){
             key={user.id}
             style={{
             backgroundColor: selectedId === user.id ? 'aquamarine' : 'inherit',
-            color: selectedId === user.id ? '#1f1a36' : 'white'
+            color: selectedId === user.id ? 'black' : 'white'
             }}
             onClick={() => handleItemClick(user.id,index)}
           >

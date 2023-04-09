@@ -4,13 +4,15 @@ import PlaylistGenerator from "../components/PlaylistGenerator";
 import SearchResults from "../components/SearchResults";
 import SearchBox from "../components/SearchBox";
 import './CollaberatePage.css'
-export default function CollaberatePage({addedUsers,setAddedUsers,accountInfo}){
+export default function CollaberatePage({accountInfo}){
     const [foundUser,setFoundUser]=useState(false)
     const [commonGenres,setCommonGenres]=useState(null)
+    const [addedUsers, setAddedUsers]= useState([])
 // load logged in users account info into group since account info is null by default 
 // need to prevent adding null value into array 
     useEffect(()=>{
-    if (addedUsers.length===0 && accountInfo!== null ){
+        console.log(accountInfo)
+    if (addedUsers.length===0 && accountInfo !== null ){
     setAddedUsers([...addedUsers,accountInfo])
 }},[accountInfo])
 // if added users change clear out genre list, only fetch data when there are at least 2 users

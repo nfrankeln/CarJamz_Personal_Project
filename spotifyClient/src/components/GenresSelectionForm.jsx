@@ -1,9 +1,11 @@
-import { useState, useReducer, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { useForm } from 'react-hook-form';
-import { Outlet, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import styles from './GenresSelectionForm.module.css'
 import axios from 'axios';
-export default function GenresSelectionForm({commonGenres,addedUsers}) {
+
+export default function GenresSelectionForm({addedUsers,commonGenres}) {
+   
     const navigate = useNavigate()
     const { register, handleSubmit,setError, reset, watch, formState: { errors,isSubmitting } } = useForm({ defaultValues: { checkboxes: {} } });
     const checkboxes = watch('checkboxes');

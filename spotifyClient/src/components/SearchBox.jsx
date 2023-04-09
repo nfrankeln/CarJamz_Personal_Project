@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from './SearchBox.module.css'
 
-export default function SearchBox({foundUser,setFoundUser}){
+export default function SearchBox({setFoundUser}){
     const { register, handleSubmit} = useForm();
     const [errorMessage,setErrorMessage] = useState(null)
     function onSubmit(searchData){
@@ -14,10 +14,11 @@ export default function SearchBox({foundUser,setFoundUser}){
       })
     .then((response) => {if(response.data['found']){
         setFoundUser({
-            'id':`${response.data['pk']}`,
+            'id':response.data['pk'],
             'firstName':response.data['first_name'],
             'lastName':response.data['last_name'],
-            'top_five_genres':response.data['top_five_genre']})
+            'top_five_genres':response.data['top_five_genre'],
+            'profileImageUrl':response.data['profileImageUrl']})
     }
     
   else setErrorMessage(true)})}

@@ -28,7 +28,6 @@ export default function NavBar({authenticated, resetState})
             <div className={styles.navbarLinks}>
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/faq">Faq</Link></li>
                     {authenticated?<li><Link to="/account">Account</Link></li>:null}
                     {authenticated?<li id='logout'><button onClick={logout}>Logout</button></li>:<li><Link to="/login">Login</Link></li>}
                 </ul>

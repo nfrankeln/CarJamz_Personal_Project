@@ -6,12 +6,12 @@ import AccountCard from '../components/AccountCard';
 // CSS IMPORT
 import './AccountPage.css'
 
-export default function AccountPage({accountInfo}){
+export default function AccountPage(){
   
     
     return (
     <>
-        {accountInfo && <AccountCard foundUser={accountInfo}/>}
+        {<AccountCard/>}
         </>
       )
 }
