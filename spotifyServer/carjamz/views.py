@@ -28,9 +28,11 @@ def getuser(request):
             'first_name':user.first_name,
                              'last_name':user.last_name,
                              'pk':user.pk,
-                             'top_five_genre':list(top_five_genre)
+                             'top_five_genre':list(top_five_genre),
+                             'profileImageUrl':user.profileImageUrl,
                              }, safe=False)
     return JsonResponse({'found':False})
+
 @api_view(['GET'])
 def common_intrests(request):
     # get querystring of ids
@@ -48,9 +50,8 @@ def common_intrests(request):
     for playlist in topSongsPlaylists:
        
         usersCount=Genre.objects.filter(artist__song__playlist = playlist).values('name').annotate(Count('name')).order_by('-name__count')
+        print(usersCount)
         counters.append(list(usersCount))
-
-  
 
 # create a list of all genres
     all_genres = list(set([g['name'] for user in counters for g in user]))
@@ -60,19 +61,30 @@ def common_intrests(request):
         for j, user in enumerate(counters): 
             count = [g['name__count'] for g in user if g['name'] == genre]
             matrix[i,j] = count[0] if count else 0
-    results=[]
-    for index,row in enumerate(matrix):
-        nonzeros = 0
-        for element in row:
-            if element != 0:
-                nonzeros+=1
-        row = (index,sum(row)/len(row)*(10**nonzeros))
-        results.append(row)
-    sorted_list = sorted(results, key=lambda x: x[1], reverse=True )
+    
+# loop through each list of arrays i.e [0,1,3] where each array represents a genre 
+    group_genre_frequency = []
+    for index,genre in enumerate(matrix):
+        nonzeros = []
+        for playlist_frequeny in genre:
+            if playlist_frequeny != 0:
+                nonzeros.append(playlist_frequeny)
+        if nonzeros:
+            lowest_nonzero = min(nonzeros)
+            nonzeros_count = nonzeros.count(lowest_nonzero)
+            genre = (index, lowest_nonzero*(10**nonzeros_count))
+            group_genre_frequency.append(genre)
+        else:
+            genre = (index, 0)
+            group_genre_frequency.append(genre)
+
+    group_genre_frequency_sorted = sorted(group_genre_frequency, key=lambda x: x[1], reverse=True)
+
 
 # return first 10 items or whole list
     top_ten_genres=[]
-    first_ten=get_n_items(sorted_list,10)
+    first_ten=get_n_items(group_genre_frequency_sorted,10)
+    print(first_ten)
     for item in first_ten:
         top_ten_genres.append(all_genres[item[0]])
     return JsonResponse({'topGenres':top_ten_genres})

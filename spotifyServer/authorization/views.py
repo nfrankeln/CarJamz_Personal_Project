@@ -33,9 +33,7 @@ def user_login(request):
     http_request = request._request
     email = request.data['loginData']['email']
     password = request.data['loginData']['password']
-    # email = request.POST['email']
-    # password = request.POST['password']
-    print("here")
+    
     user = authenticate(http_request, email=email, password=password)
     if user is not None:
         login(http_request, user)
@@ -67,7 +65,8 @@ def account_information(request):
     try:
         currentUser = AppUser.objects.get(email=request.user)
         first_name = currentUser.first_name
-        last_name= currentUser.last_name
+        last_name = currentUser.last_name
+        profileImageUrl = currentUser.profileImageUrl
 # TODO add way to check if user is just signed up but not authorized to spotfiy
         if currentUser:
             playlist_collection = UserPlaylistCollection.objects.get(user=currentUser)
@@ -81,5 +80,6 @@ def account_information(request):
         'id':currentUser.pk,
         'firstName':first_name,
         'lastName':last_name,
-        'top_five_genres':top_five_genre
+        'top_five_genres':top_five_genre,
+        'profileImageUrl':profileImageUrl
     },safe=False)

@@ -1,4 +1,5 @@
 # Import Django Built-ins
+from django.db import IntegrityError
 from django.shortcuts import render,redirect
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
@@ -7,14 +8,18 @@ from django.utils import timezone
 from rest_framework.decorators import api_view
 from requests import Request,post
 import requests
+import asyncio
+import aiohttp
+import time
 # Import Functions
-from spotifyapi.utils import get_token
+from spotifyapi.utils import get_token, save_spotify_profile, get_top_tracks,get_artist,get_artists,get_artist_data_concurrently
 # Import enviroment variables
 from .credentials import CLIENT_ID,CLIENT_SECRET,REDIRECT_URI
 # Import Models
 from spotifyapi.models import SpotifyToken,Song,Playlist,UserPlaylistCollection,Artist,Genre
 from authorization.models import AppUser
 from django.db.models import Count
+
 
 @api_view(['GET'])
 def spotify_url(request):
@@ -73,7 +78,6 @@ def spotfiy_callback(request):
                 token_type = token_type)
         if created:
                 newToken.save()
-                # save_User_Spotify_Data(newToken)
         save_User_Spotify_Data(request)
         return redirect('authorization:home')
         pass
@@ -90,83 +94,83 @@ def topSongs(request):
         except Exception as e:
                 print(e)
                 return HttpResponse("error")
+     
+def save_User_Spotify_Data(request):
+        start_time = time.time()
+        
        
-def save_User_Spotify_Data(request): 
-# STEP 1 GET USER'S TOP SONGS 
-
+    
+# STEP 1 GET USER'S Profile and Top Songs 
         user = AppUser.objects.get(email=request.user)
         access_token = get_token(user)
-        params={"limit":50}
         headers = {"Authorization": "Bearer "+ access_token}
-        response=requests.get('https://api.spotify.com/v1/me', headers = headers).json()
-        if 'images' in response:
-                user.profileImageUrl = response['images'][0]['url'] 
-        else:
-                user.profileImageUrl='https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png'
-        user.save()
-        response = requests.get("https://api.spotify.com/v1/me/top/tracks",params=params, headers=headers)
-        response=response.json()
-        response=response['items']
+        
+        save_spotify_profile(user,access_token)
+       
+        top_tracks=get_top_tracks(50,access_token)
+        
 # STEP 2 Create or Get a the users Collection of playlists
         user_playlist_collection, created = UserPlaylistCollection.objects.get_or_create(user=request.user)
         if not created:
-                user_playlist_collection.save()
-        
-#STEP 3 Get the users "top songs" playlist TODO figure out better name could cause issue if user creates an actuall playlisy called top songs 
+                user_playlist_collection.save()      
+#STEP 3 Get the users "top songs" playlist TODO 
+# figure out better name could cause issue if user creates an actuall playlist called top songs 
+#  possible solution change name to type such that type would be 
         playlist, created = Playlist.objects.get_or_create(
                 name = "top songs",
                 user_playlist_collection_id = user_playlist_collection)
-        if not created:
-                playlist.save()
+
+      
 # Loop through songs if song is created, the artist and genre are already saved!
 # TODO make ascycio and clean up code
-        for song in response:
-                song_model, created = Song.objects.get_or_create(
-                        name = song['name'],
-                        spotify_id = song['id'])
-                if  created:
-                        song_model.save()
 
+        # Use batch create to create songs
+        songs=[]
+        
+        artist_tuples=[]
+        for song in top_tracks:
+                
+                
+                
+                song_instance, created = Song.objects.get_or_create(name=song['name'], spotify_id=song['id'])
+                songs.append(song_instance)
+                if created:
+                        artists_instances=[]
                         for artist in song['artists']:
-                                artist_model , created = Artist.objects.get_or_create(
+                                id=artist['id']
+                                artist_instance , created = Artist.objects.get_or_create(
                                 name = artist['name'],
                                 spotify_id = artist['id'])
-                                
+                                              
                                 if created:
-                                        artist_model.save()
-                                        artist_model , created = Artist.objects.get_or_create(
-                                        name = artist['name'],
-                                        spotify_id = artist['id'])
-                                        
-                                        url = f'https://api.spotify.com/v1/artists/{artist["id"]}'
-                                        artist_response = requests.get(url , headers = headers)
-                                        artist_response = artist_response.json()
-                                        for genre in artist_response['genres']:
-                                                genre_model, created=Genre.objects.get_or_create(
-                                                name = genre
-                                        )
-                                                if created: 
-                                                        genre_model.save()
-                                                artist_model.genre.add(genre_model)
-                                song_model.artist.add(artist_model)
-                        playlist.songs.add(song_model)
-                
+                                       artists_instances.append(artist_instance) 
+                                       artist_tuples.append((artist_instance,f'https://api.spotify.com/v1/artists/{id}')) 
+                        song_instance.artist.set(artists_instances)
 
+        artist_urls=[artist[1] for artist in artist_tuples]
+        artist_data=asyncio.run(get_artist_data_concurrently(artist_urls,headers))
+
+        for index,artist in enumerate(artist_data):
+                artistInstance = artist_tuples[index][0]
+                for genre in artist['genres']:
+                        new_genre,created=Genre.objects.get_or_create(name=genre)
+                        artistInstance.genre.add(new_genre)
         
-                                           
-        
+
         return HttpResponse("test")
         pass
-        pass
+        
+
+
+
+
+
 @api_view(['GET'])
 def profileData(request):
         
         playlist_collection = UserPlaylistCollection.objects.get(user=request.user)
         top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
         top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5]
-        
-
-
         return JsonResponse({'top genres': top_five_genre})
         pass
 
