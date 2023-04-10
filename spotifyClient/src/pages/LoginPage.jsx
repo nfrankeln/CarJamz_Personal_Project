@@ -8,11 +8,15 @@ import './LoginPage.css'
 export default function LoginPage(props){
     
     const[showSignIn,setShowSignIn]=useState(true)
+    const [error , showError]=useState(false)
     
     return(
             <div id='login-form-container'>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
             <LoginButtonToggle showSignIn={showSignIn} setShowSignIn={setShowSignIn} />
-            {showSignIn ? <SignInForm/>:<SignUpForm setAuthenticated={props.setAuthenticated}/>}
+            {error && <span className='danger' style={{ marginLeft: '10px' }}>Invalid credentials</span>}
+            </div>
+            {showSignIn ? <SignInForm showError={showError}/>:<SignUpForm setAuthenticated={props.setAuthenticated}/>}
             </div>
         
     )
