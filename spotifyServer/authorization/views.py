@@ -6,6 +6,8 @@ from authorization.models import AppUser
 from spotifyapi.models import UserPlaylistCollection, Playlist,Genre
 from django.db.models import Count
 from spotifyapi.utils import get_token
+from django.core.exceptions import ValidationError
+
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 def index(request):
@@ -24,9 +26,13 @@ def register(request):
         user = authenticate(http_request, email=email, password=password)
         login(http_request, user)
         return JsonResponse({'success': True})
-    except Exception as e:
-        print(e)
-        return HttpResponse("User Creation Failed")
+    except ValidationError as e:
+        error_message = list(e.message_dict.values())[0][0]
+        print(error_message)
+        return JsonResponse({'error': error_message}, status=400)
+
+
+
 
 @api_view(['POST'])
 def user_login(request):
@@ -36,10 +42,10 @@ def user_login(request):
     
     user = authenticate(http_request, email=email, password=password)
     if user is not None:
-        login(http_request, user)
-        return HttpResponse("logged in")
+            login(request, user)
+            return JsonResponse({'status': 'success', 'message': 'logged in'})
     else:
-        return HttpResponse("Either the username or password is incorrect")
+        return JsonResponse({'status': 'error', 'message': 'Either the username or password is incorrect'}, status=401)
 @api_view(['POST'])
 def user_logout(request):
     print("here")
