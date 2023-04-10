@@ -28,6 +28,9 @@ c) a users page where a user can look up other users
 The back end is made with django and postgres
 
 ## Postgres Diagram
+
+![drawSQL-spotify-export-2023-04-10](https://user-images.githubusercontent.com/101782117/230993348-9b67fc2e-12c1-4627-aeb7-07f434fdad98.png)
+
 [Spotify song data diagram](https://drawsql.app/teams/codeplatoon/diagrams/spotify)
 
 ##Encountered Problems
