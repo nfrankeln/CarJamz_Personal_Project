@@ -62,17 +62,24 @@ def is_authenticated(request):
         return JsonResponse({'is_authenticated': False,'permission':permission})
 @api_view(['GET'])
 def account_information(request):
+    currentUser = AppUser.objects.get(email=request.user)
+    first_name = currentUser.first_name
+    last_name = currentUser.last_name
+    top_five_genre = None
+    profileImageUrl= currentUser.profileImageUrl
     try:
-        currentUser = AppUser.objects.get(email=request.user)
-        first_name = currentUser.first_name
-        last_name = currentUser.last_name
-        profileImageUrl = currentUser.profileImageUrl
+        
 # TODO add way to check if user is just signed up but not authorized to spotfiy
-        if currentUser:
+        if get_token(currentUser):
+            print('token')
             playlist_collection = UserPlaylistCollection.objects.get(user=currentUser)
             top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
             top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
             top_five_genre=list(top_five_genre)
+            profileImageUrl = currentUser.profileImageUrl
+        else:
+            top_five_genre = None
+            profileImageUrl= None
     except Exception as e:
         print(e)
     return JsonResponse({

@@ -42,7 +42,7 @@ class AppUser(AbstractUser):
         max_length=255,
         unique=True
     )
-    profileImageUrl=models.TextField(null=True, blank=True)
+    profileImageUrl = models.TextField(default='https://i.ibb.co/Zgcdrfj/profile-image.png')
     spotifyID=models.CharField(max_length=255,null=True,blank=True)
     
     objects=UserManager()

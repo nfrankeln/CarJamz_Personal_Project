@@ -14,24 +14,30 @@ import math
 from carjamz.utils import get_n_items
 from spotifyapi.utils import get_token
 # Create your views here.
-@api_view(['GET'])
+@api_view(['GET','DELETE'])
 def getuser(request):
-    email = request.GET.get('email')
-    user = AppUser.objects.filter(email=email).first()
-    
+    if request.method == 'GET':
+        email = request.GET.get('email')
+        user = AppUser.objects.filter(email=email).first()
+        
 
-    if user:
-        playlist_collection = UserPlaylistCollection.objects.get(user=user)
-        top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
-        top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
-        return JsonResponse({'found':True,
-            'first_name':user.first_name,
-                             'last_name':user.last_name,
-                             'pk':user.pk,
-                             'top_five_genre':list(top_five_genre),
-                             'profileImageUrl':user.profileImageUrl,
-                             }, safe=False)
-    return JsonResponse({'found':False})
+        if user:
+            playlist_collection = UserPlaylistCollection.objects.get(user=user)
+            top_songs_playlist = Playlist.objects.filter(name='top songs', user_playlist_collection_id=playlist_collection).first()
+            top_five_genre = Genre.objects.filter(artist__song__playlist = top_songs_playlist).annotate(num_songs=Count('artist__song__playlist__id')).order_by('-num_songs')[:5].values_list('name', flat=True)
+            return JsonResponse({'found':True,
+                'first_name':user.first_name,
+                                'last_name':user.last_name,
+                                'pk':user.pk,
+                                'top_five_genre':list(top_five_genre),
+                                'profileImageUrl':user.profileImageUrl,
+                                }, safe=False)
+        return JsonResponse({'found':False})
+    if request.method == 'DELETE':
+        print('here')
+        user = request.user
+        user.delete()
+        return JsonResponse({'success': True})
 
 @api_view(['GET'])
 def common_intrests(request):

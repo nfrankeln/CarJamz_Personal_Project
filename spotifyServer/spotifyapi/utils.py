@@ -16,20 +16,24 @@ def get_token(user):
         
     # refreshe token, save new token and expiraiton time, and return new access token 
 def refresh_access_token(token):
-    response = post('https://accounts.spotify.com/api/token', data={
-        'grant_type': 'refresh_token',
-        'refresh_token': token.refresh_token,
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET
-    }).json()
+    try:
+        response = post('https://accounts.spotify.com/api/token', data={
+            'grant_type': 'refresh_token',
+            'refresh_token': token.refresh_token,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET
+        }).json()
 
-    access_token = response.get('access_token')
-    expires_in = response.get('expires_in')
+        access_token = response.get('access_token')
+        expires_in = response.get('expires_in')
 
-    token.access_token=access_token
-    token.access_token_expiration= timezone.now() + timezone.timedelta(seconds=expires_in)
-    token.save()
-    return access_token
+        token.access_token=access_token
+        token.access_token_expiration= timezone.now() + timezone.timedelta(seconds=expires_in)
+        token.save()
+        return access_token
+    except:
+         return False
+    
 
 # currently only save there image but could be modified to save more
 def save_spotify_profile(user,access_token):
