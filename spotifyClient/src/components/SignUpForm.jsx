@@ -2,19 +2,32 @@ import './SignUpForm.css'
 import { useForm } from "react-hook-form";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 
 export default function SignUpForm(props){
     const navigate = useNavigate()
-
+    const [error,setError]=useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = signUpData => axios.post('api/register/',{signUpData})
-    .then(response => props.setAuthenticated(response.data['success']))
-    .then(console.log(props))
-    .then(navigate('/'));
+    const onSubmit = signUpData => axios.post('api/register/', { signUpData })
+    .then(response => {props.setAuthenticated(response.data['success']);
+     console.log(props);
+    if (response.data['success']) {
+      navigate('/');
+    }
+  })
+  .catch(error => {
+    const errorMessage = error.response.data['error'];
+
+    setError(errorMessage);
+  })
+  
+
     
     return(
         <div id="sign-up-form-body" >
+            {error && <span className='danger'>{error}</span>}
             <form id="sign-up-form" onSubmit={handleSubmit(onSubmit)}>
             
 
