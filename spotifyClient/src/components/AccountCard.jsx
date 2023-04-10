@@ -8,19 +8,26 @@ export default function AccountCard(){
     function toggleModal(){
         setModalState(!modalState)
     }
-    const accountInfo =  useContext(accountInfoContext);
+    const [accountInfo] =  useContext(accountInfoContext);
+    console.log(accountInfo.profileImageUrl)
     return(<>
         <div className={styles.accountCard}>
         <img className={styles.roundImage} src={accountInfo.profileImageUrl} alt="user" />
         <p>{accountInfo.firstName} {accountInfo.lastName}</p>
         <div className={styles.accountGenres}>
-          <h6>Top Genres</h6>
-          <ul>
-            {accountInfo.top_five_genres.map((genre)=><li>{genre}</li>)}
-          </ul>
+        {accountInfo.top_five_genres && accountInfo.top_five_genres.length > 0 &&
+  <>
+    <h6>Top Genres</h6>
+    <ul>
+      {accountInfo.top_five_genres.map((genre) => <li>{genre}</li>)}
+    </ul>
+  </>
+}
+
           <div>
           <button className={styles.danger} onClick={toggleModal}>Delete Account <div><FaRegTrashAlt/></div>
-          </button></div>
+          </button>
+          </div>
         </div>
         
       </div>

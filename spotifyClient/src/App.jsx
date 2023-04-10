@@ -52,7 +52,8 @@ function App() {
 
 //grab users account info
 useEffect(() => {
-  if (authenticated && spotifyAuthorized) {
+  if (authenticated) {
+    console.log('getting account')
     axios.get('api/account/information/')
       .then(response => {
         setAccountInfo({...response.data});
@@ -109,7 +110,7 @@ const router = createBrowserRouter(
       )
 )
   return (
-    <accountInfoContext.Provider value={accountInfo}>
+    <accountInfoContext.Provider value={[accountInfo, setAuthenticated]} >
       <RouterProvider router={router}/>
       </accountInfoContext.Provider>
   )
