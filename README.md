@@ -201,8 +201,10 @@ Aquamarine and Dark Purple contrast ratio 12.33:1
 
 
 ## Encountered Problems
-P) spotify only has a small list of seed genres availible for reccomendation. i.e 50 reccomendation genres for the 1000+ genres associated with artists
-S) Filter Genres on backend and when user selects genres on frontend get random artists from local db that are associated with selcted genre
+Problem 1) spotify only has a small list of seed genres availible for reccomendation. i.e 50 reccomendation genres for the 1000+ genres associated with artists
 
-P) slow saving of user data due to the multiple API requests needed to query a artists information
-S) make requests asynchronously this dropped the avg load time from 8 seconds to 1.5 seconds
+Solution) Filter Genres on backend and when user selects genres on frontend get random artists from local db that are associated with selcted genre
+
+Problem 2) slow saving of user data due to the multiple API requests needed to query a artists information
+
+Solution) make requests asynchronously this dropped the avg load time from 8 seconds to 1.5 seconds
