@@ -37,8 +37,6 @@ Using the App consists of 5 steps
   - The user is then presented with a list of genres generate a playlist
    
 
-   <img width="1002" alt="Screen Shot 2023-04-12 at 12 24 35 AM" src="https://user-images.githubusercontent.com/101782117/231358709-f78d4228-40d2-420b-a342-7b8a949a95dc.png">
-
 **Playlist Generation**
 
    After selecting up to 5 genres a user will be taken to a playlist page
