@@ -27,11 +27,75 @@ c) a users page where a user can look up other users
 ## Back End
 The back end is made with django and postgres
 
-## Postgres Diagram
+## Postgresql Diagram
 
 ![drawSQL-spotify-export-2023-04-10](https://user-images.githubusercontent.com/101782117/230993348-9b67fc2e-12c1-4627-aeb7-07f434fdad98.png)
 
 [Spotify song data diagram](https://drawsql.app/teams/codeplatoon/diagrams/spotify)
+
+GitHub README - Schema for an Application
+This repository contains the schema for an application's database, which consists of the following tables:
+
+Users
+This table stores information about the users of the application. Each user has a one-to-one relationship with a Token.
+
+Fields:
+
+user_id: a unique identifier for the user
+first_name: the user's first name
+last_name: the user's last name
+email: the user's email address
+password: the user's password
+profile_image_url: a URL for the user's profile image
+token_id: a foreign key to the Token table
+Tokens
+This table stores authentication tokens for users to access the Spotify API. Each Token has a one-to-one relationship with a User.
+
+Fields:
+
+token_id: a unique identifier for the token
+access_token: the access token attached to request headers to the Spotify API
+refresh_token: the token used to get a new access token when the access token expires
+token_type: the type of token (currently only "bearer")
+user_id: a foreign key to the User table
+UserPlaylistCollection
+This table stores the collections of playlists belonging to each user in the system. Each UserPlaylistCollection has a one-to-many relationship with the Playlist table and a one-to-one relationship with the User table.
+
+Fields:
+
+collection_id: a unique identifier for the collection
+user_id: a foreign key to the User table
+Playlist
+This table stores the songs in a playlist. Each Playlist has a many-to-many relationship with the Song table.
+
+Fields:
+
+playlist_id: a unique identifier for the playlist
+name: the name of the playlist
+collection_id: a foreign key to the UserPlaylistCollection table
+Song
+This table stores song names, artists, and playlists the song is in. Each Song has a many-to-many relationship with the Playlist and Artist tables.
+
+Fields:
+
+song_id: a unique identifier for the song
+name: the name of the song
+Artist
+This table stores artist names, Spotify URIs, related songs, and associated genres. Each Artist has a many-to-many relationship with the Song and Genre tables.
+
+Fields:
+
+artist_id: a unique identifier for the artist
+name: the name of the artist
+spotify_uri: the Spotify URI for the artist
+Genre
+This table stores genre names. Each Genre has a many-to-many relationship with the Artist table.
+
+Fields:
+
+genre_id: a unique identifier for the genre
+name: the name of the genre
+
 
 ##Encountered Problems
 1) spotify only has a small list of seed genres availible but can take in any artist id solution: get random artists assoicated with selected genres
