@@ -23,23 +23,24 @@ from django.db.models import Count
 
 @api_view(['GET'])
 def spotify_url(request):
+# user-top-read
+# playlist-modify-public
+# playlist-modify-private 
+# user-modify-playback-state
+# user-read-currently-playing
+# user-modify-playback-state
+# user-read-private
 
-        scopes= """ugc-image-upload
+        scopes= """
         user-read-playback-state
         user-modify-playback-state
         user-read-currently-playing
         app-remote-control
-        playlist-read-private
-        playlist-read-collaborative
         playlist-modify-private
         playlist-modify-public
-        user-follow-modify
-        user-follow-read
         user-read-playback-position
         user-top-read
         user-read-recently-played
-        user-library-modify
-        user-library-read
         user-read-email
         user-read-private
         streaming

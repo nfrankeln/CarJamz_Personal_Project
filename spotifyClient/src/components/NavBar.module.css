@@ -80,7 +80,7 @@ input[type="checkbox"]:checked ~ #sidebarMenu {
         display: block;
     }
     .navbarLinks{
-        position: absolute;
+        position: fixed;
         /* top:4rem; */
         z-index: 1;
         text-align: center;
